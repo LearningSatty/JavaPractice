@@ -1,0 +1,70 @@
+The chief of security department Mr. Lee has received some input from intelligence 
+and based on that he has issued a notice to top ministers of the country that the number plates 
+outside their office rooms need to be updated with random numbers till further notice to cause
+confuse in attackers mind.
+
+All other ministers have agreed to it except the Prime minister.
+
+He says since he is the Prime Minister he will only have a 4 digit prime number on his office room. 
+He will let Mr. Lee know the current number of his office room and 
+the number he finally wants to have.
+
+The working constraint are such that workers who work on the plate can only work in the night time
+since during the day office work goes on.
+Also in one night's time only one digit on the plate can be changed. 
+ 
+And on top of that the Prime minister has 2 conditions.
+
+1. Every morning he comes to work, he only wants to see a 4 digit prime number on the number plate.
+2. He wants the change work to finish in the least number of days possible. 
+
+Suppose Prime minister currently has the number 1033 and wants to change it to 8179. (Note: Both are prime numbers)
+Then overnight the 1 can't be changed to 8 as 8033 is not a prime number and the Prime minister won't be pleased with this number.
+So the changes will take place in the following order 
+Night 0:	1033
+Night 1:	1733
+Night 2:	3733
+Night 3:	3739
+Night 4:	3789
+Night 5:	8779
+Night 6:	8179
+
+So it will take total six nights to complete.  
+
+Given 2 prime numbers please help Mr. Lee to find the minimum number of nights in which work can be finished which in short can be 
+called shortest prime path between 2 prime numbers. ﻿ 
+
+Input
+
+One linewith a positive number: the number of test cases . Then for each test case, oneline with two numbers separated by a blank. Both numbers are four-digit primes(without leading zeros).
+
+Output
+
+For each test case, output Two line for eachcase first output line of each test case should be Case #tn, where tn is the test case number.
+
+Second Line either with a number stating the minimalcost or containing the word Impossible.
+
+Example
+
+Input 
+
+3
+1033 8179
+
+1373 8017
+
+1033 1033
+
+Output
+
+Case #1
+
+6
+
+Case #2
+
+7
+
+Case #3
+
+0
