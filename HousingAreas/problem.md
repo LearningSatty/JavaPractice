@@ -13,7 +13,9 @@ N, the map size is given in the first row of each test case. This map is always 
 The map information is given separately from the second row to the number of N. In case houses do not exist in the corresponding area, 0 is given, and in case houses exist in the corresponding area, 1 is given. 
 [Output]
 For each test case, you should print "Case #T" in the first line where T means the case number. For each test case, you should output the total number of housing areas in the first row of each test case.
+
 [I/O Example] 
+
 Input
 2
 7
@@ -33,7 +35,12 @@ Input
 
 Output
 Case #1
+
 3
+
 Case #2
+
 12
+
+
 
