@@ -2,6 +2,8 @@ Falling Stocks. Bankrupted companies. Banks with no Cash.Seems like the best tim
 
 No seriously, I think I have the solution to at least the problem of cash inbanks. Banks nowadays are all owing each other great amounts of money and nobank has enough cash to pay other banks' debts even though, on paper at least,they should have enough money to do so. Take for example the inter-bank loansshown in figure (a). The graph shows the amounts owed between four banks (A...D). For example, A owes B 50M while, at the same time, B owes A 150M. (It isquite common for two banks to owe each other at the same time.) A total amountof 380M in cash is needed to settle all debts between the banks.
 
+http://sotong.sec.samsung.net/sotong/uploadimage/201654151037200_e1cvdsxMVLVO2FDXnMGyYcVJA...jpg
+
 In an attempt to decrease the need for cash, and after studying the example carefully, I concluded that there's a lot of cash being transferred unnecessarily. Take a look: 
 
 1. C owes D the same amount as D owes A, so we can say that C owes A an amountof 30M and get D out of the picture. 
