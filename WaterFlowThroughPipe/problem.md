@@ -1,11 +1,15 @@
             WaterFlow through pipe
 
 There is a network of pipes designed for the flow of water for fire conditions. It is made by joining unit length nodes of multiple designs. There are 7 designs available.
+
         1 2 3 4 5 6 7
         ┼ ─ │ └ ┘ ┌ ┐
-    Water can flow between nodes only if they align a connection. For example,
+        
+ Water can flow between nodes only if they align a connection. For example,
+ 
         1234    56789
         │┼─┘    └─┼─┘
+        
  in above configurations, water can go to node 3 and 4 from 2, but not to 1. And can go to all 5,6,7,8,9 from any of 5,6,7,8,9
 
 ﻿ 
