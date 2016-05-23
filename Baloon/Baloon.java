@@ -1,7 +1,6 @@
+
 import java.util.Scanner;
 
-
-//// Incomplete right now
 public class Baloon {
 
 	static int[][] arr_b;
@@ -15,6 +14,7 @@ public class Baloon {
 			for (int i = 0; i < N; i++) {
 				baloon[i] = sc.nextInt();
 			}
+			s=0;
 			arr_b = new int[calcFactorial(N)][N];
 			perm1(baloon, N);
 			int scoreAnswer =0;
@@ -31,25 +31,28 @@ public class Baloon {
 							index = k;break;
 						}
 					}
-					baloon_vis[index] = 1;
-					if(index+1>N && index-1<0){
+					
+					int index_left = findUnvisitedOnLeft(index, baloon_vis);
+					int index_right = findUnvisitedOnRight(index, baloon_vis);
+					if(index_left==-1 && index_right==-1){
 						score = score + baloon[index];
 					}
-					else if(index+1<N && index-1>=0)
+					else if(index_left!=-1 && index_right!=-1)
 					{
-							score = score + baloon[index-1]*baloon[index+1];
+							
+							score = score + baloon[index_left]*baloon[index_right];
 					}
-					else if (index+1<N || index-1>=0){
-						if(index+1<N)
+					else if (index_left!=-1 || index_right!=-1){
+						if(index_left!=-1)
 						{
-							score = score + baloon[index+1];
+							score = score + baloon[index_left];
 						}
 						else
 						{
-							score = score + baloon[index-1];
+							score = score + baloon[index_right];
 						}
 					}
-					
+					baloon_vis[index] = 1;
 				}
 				if(score>scoreAnswer)
 					scoreAnswer = score;
@@ -60,6 +63,30 @@ public class Baloon {
 	}
 
 	
+	private static int findUnvisitedOnRight(int index, int[] baloon_vis) {
+		// TODO Auto-generated method stub
+		
+		for (int i = index+1; i < baloon_vis.length; i++) {
+			if(baloon_vis[i]==0)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+
+	private static int findUnvisitedOnLeft(int index, int[] baloon_vis) {
+		// TODO Auto-generated method stub
+		
+		for (int i = index-1; i >= 0; i--) {
+			if(baloon_vis[i]==0)
+				return i;
+		}
+		return -1;
+	}
+
+
 	static int calcFactorial(int n){
 		if(n==0 || n==1)
 			return 1;
@@ -75,12 +102,12 @@ public class Baloon {
 		{
 			
 			for (int i = 0; i < arr.length; i++) {
-				System.out.print(arr[i]+" ");
+				//System.out.print(arr[i]+" ");
 				arr_b[s][i] = arr[i];
 				
 			}
 			s++;
-			System.out.println();
+			//System.out.println();
 			return;
 		}
 		for (int i = 0; i < n; i++) {
