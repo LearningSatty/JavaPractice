@@ -1,52 +1,59 @@
+package com.satty.practice;
 
-
-import java.util.Queue;
 import java.util.Scanner;
-import java.util.concurrent.ArrayBlockingQueue;
 
-public class B_ManTradingNTaxing {
+public class BusManTradingNTaxing {
 
-	static int quan[],  taxes[];
+	static int quan[], taxes[];
 	static int N_cities;
+	static long min;
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int T_case = sc.nextInt();
 		for (int t = 0; t < T_case; t++) {
-			N_cities=sc.nextInt();
-			quan= new int[N_cities];
+			N_cities = sc.nextInt();
+			quan = new int[N_cities];
 			taxes = new int[N_cities];
 			for (int i = 0; i < N_cities; i++) {
-				quan[i]  = sc.nextInt();
+				quan[i] = sc.nextInt();
 				taxes[i] = sc.nextInt();
 			}
-			
-			System.out.println(FindMin_Cost( 0, 0, 1, 0));
+			min = Integer.MAX_VALUE;
+			findMin_Cost(0, 0, 0, 0, 0);
+			System.out.println("Case #" + (t + 1));
+			System.out.println(min);
 		}
-			
-	}
-	
-	
-	private static long FindMin_Cost(int money, int fruit,
-			int currentCity, int bagopen) {
-		long p1= Integer.MAX_VALUE; long p2= Integer.MAX_VALUE; long p3= Integer.MAX_VALUE; 
-		//(1) 
-		p1= currentCity==N_cities ? money + taxes[currentCity-1]: FindMin_Cost(money+ taxes[currentCity-1], fruit, currentCity+1 ,bagopen); 
-		//(2)
-		p2 = currentCity==N_cities ? money + taxes[currentCity-1]*2:FindMin_Cost(taxes[currentCity-1]*2, fruit+ quan[currentCity-1], currentCity+1,bagopen);
-		//3)
-		if(fruit>=quan[currentCity-1]) { 
-			fruit = fruit-quan[currentCity-1]; 
-			bagopen= bagopen+1; 
-			if(bagopen==3) 
-			{
-				fruit=0; bagopen=0;
-			} 
-			p3= currentCity==N_cities ? money : FindMin_Cost(money, fruit, currentCity+1, bagopen); 
-			} 
-		return java.lang.Math.min(java.lang.Math.min(p1, p2),p3); 
+
 	}
 
-	
+	private static void findMin_Cost(long money, int fruit1, int fruit2,
+			int fruit3, int currentCity) {
+		if (currentCity + 1 > N_cities) {
+			if (money < min)
+				min = money;
+			return;
+		}
+		if (money >= min) {
+			return;
+		}
 
+		findMin_Cost(money + taxes[currentCity], fruit1, fruit2, fruit3, currentCity + 1);
+		findMin_Cost(money + (2 * taxes[currentCity]), fruit1 + quan[currentCity], fruit2, fruit3, currentCity + 1);
+
+		int fruit = fruit1 + fruit2 + fruit3;
+		if (fruit >= quan[currentCity]) {
+			if (fruit3 >= quan[currentCity]) {
+				fruit3 = fruit3 - quan[currentCity];
+			} else if ((fruit3 + fruit2) >= quan[currentCity]) {
+				fruit2 = (fruit3 + fruit2) - quan[currentCity];
+				fruit3 = 0;
+			} else {
+				fruit1 = fruit - quan[currentCity];
+				fruit3 = 0;
+				fruit2 = 0;
+			}
+			findMin_Cost(money, 0, fruit1, fruit2, currentCity + 1);
+		}
+	}
 }
-
