@@ -1,3 +1,5 @@
+                                        BusinessManVisitingCity(BackTracking)
+
 There is a businessman going through multiple cities doing trade. He starts from his hometown with only money and does the buying / selling of fruits or pays entry tax throughout his journey. He has to pass through multiple cities (max 20) during his journey in the given order. At each city he has 3 options -
 
  (1) He pays the entry tax and continue his journey with the existing fruits
