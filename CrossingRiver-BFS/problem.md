@@ -21,3 +21,20 @@ N, the numbers of the cannibals and scholars (i.e., N cannibals and N scholars) 
 [Output]
 Output the minimum number of times for moving the boat across the river for all of the cannibals and scholars to cross in each case. If there is no case of crossing the river without the scholars dying then output equals "impossible".
 
+[I/O Example] 
+
+Input 
+2
+2 2
+9 5
+
+Output
+Case #1
+
+5
+
+Case #2
+
+11 
+
+
