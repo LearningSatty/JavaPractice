@@ -23,129 +23,74 @@ Output: 153.20
 
 public class MarathonWithMinTime {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	static int Answer = Integer.MAX_VALUE;
+	private static int totalEnergy;
+	private static int totalDistanceToTravel;
+	private static int noOfPaces;
+
+	private static int[] timeIndex;
+	private static int[] energyIndex;
+
+	public static void main(String args[]) throws Exception {
 		Scanner sc = new Scanner(System.in);
-		int T_Case = sc.nextInt();
-		for (int i = 0; i < T_Case; i++) {
-			int H = sc.nextInt();
-			int D = sc.nextInt();
-			int[] min = new int[5];
-			int[] sec = new int[5];
-			int[] energy = new int[5];
-			for (int j = 0; j < 5; j++) {
-				min[j] = sc.nextInt();
-				sec[j] = sc.nextInt();
-				energy[j] = sc.nextInt();
+
+		int T = sc.nextInt();
+		for (int test_case = 0; test_case < T; test_case++) {
+
+			noOfPaces = 5;
+			totalEnergy = sc.nextInt();
+			totalDistanceToTravel = sc.nextInt();
+
+			timeIndex = new int[noOfPaces];
+			energyIndex = new int[noOfPaces];
+
+			for (int i = 0; i < noOfPaces; i++) {
+				int min = sc.nextInt();
+				int sec = sc.nextInt();
+				int energy = sc.nextInt();
+
+				timeIndex[i] = (min * 60) + sec;
+				energyIndex[i] = energy;
 			}
-			
-			for (int j = 0; j < energy.length; j++) {
-				sec[j] = sec[j] + min[j]*60;
-			}
-			
-			for (int j = 0; j < energy.length; j++) {
-				System.out.println((j+1)+"th pace time: "+sec[j]);
-			}
-			int max_km[] = new int[5];
-			for (int j = 0; j < energy.length; j++) {
-				max_km[j] = H/energy[j];
-			}
-			
-			int final_time = Integer.MAX_VALUE;
-			
-			for (int j = 0; j < max_km[0]; j++) {
-				int d1 = j;
-				int energ1 = j*energy[0];
-				int secs1 = j*sec[0];
-				if(energ1>H)
-					break;
-				if(D==d1)
-				{
-					int seccc = secs1;
-					if(seccc<final_time)
-						{
-						final_time = seccc;
-						System.out.println("d1= "+d1);
-						System.out.println(seccc);
-						System.out.println(energ1);
-					}
-				}
-				for (int k = 0; k < max_km[1]; k++) {
-					int d2 = k;
-					int energ2 = k*energy[1];
-					int secs2 = k*sec[1];
-					if(energ1+energ2>H)
-						break;
-					if(D==d1+d2)
-					{
-						int seccc = secs1+secs2;
-						if(seccc<final_time)
-						{
-						final_time = seccc;
-						System.out.println("d1="+d1+" d2="+d2);
-						System.out.println(seccc);
-						System.out.println(energ1+energ2);
-					}
-					}
-					for (int l = 0; l < max_km[2]; l++) {
-						int d3 = l;
-						int energ3 =  l*energy[2];
-						int secs3 = l*sec[2];
-						if(energ1+energ2+energ3>H)
-							break;
-						if(D==d1+d2+d3)
-						{
-							int seccc = secs1+secs2+secs3;
-							if(seccc<final_time)
-							{
-							final_time = seccc;
-							System.out.println("d1="+d1+" d2="+d2+" d3="+d3);
-							System.out.println(seccc);
-							System.out.println(energ1+energ2+energ3);
-						}
-						}
-						for (int m = 0; m < max_km[3]; m++) {
-							int d4 = m;
-							int energ4 =  m*energy[3];
-							int secs4 = m*sec[3];
-							if(energ1+energ2+energ3+energ4>H)
+
+			startTraversing();
+
+			int MIN = Answer / 60;
+			int SEC = Answer - MIN * 60;
+
+			System.out.println("Case #" + (test_case + 1));
+			System.out.println(MIN + " " + SEC);
+
+			Answer = Integer.MAX_VALUE;
+		}
+	}
+
+	private static void startTraversing() {
+		for (int firstPace = 0; firstPace < totalDistanceToTravel; firstPace++) {
+			for (int secondPace = 0; secondPace < totalDistanceToTravel; secondPace++) {
+				for (int thirdPace = 0; thirdPace < totalDistanceToTravel; thirdPace++) {
+					for (int fourthPace = 0; fourthPace < totalDistanceToTravel; fourthPace++) {
+						for (int fifthPace = 0; fifthPace < totalDistanceToTravel; fifthPace++) {
+							int distance = firstPace + secondPace + thirdPace + fourthPace + fifthPace;
+
+							if (distance > totalDistanceToTravel) {
 								break;
-							if(D==d1+d2+d3+d4)
-							{
-								int seccc = secs1+secs2+secs3+secs4;
-								if(seccc<final_time)
-								{
-								final_time = seccc;
-								System.out.println("d1="+d1+" d2="+d2+" d3="+d3+" d4="+d4);
-								System.out.println(seccc);
-								System.out.println(energ1+energ2+energ3+energ4);
 							}
-							}
-							for (int n = 0; n < max_km[4]; n++) {
-								int d5 = n;
-								int energ5 =  n*energy[4];
-								int secs5 = n*sec[4];
-								if(energ1+energ2+energ3+energ4+energ5>H)
-									break;
-								if(D==d1+d2+d3+d4+d5)
-								{
-									int seccc = secs1+secs2+secs3+secs4+secs5;
-									if(seccc<final_time)
-									{
-									final_time = seccc;
-									System.out.println("d1="+d1+" d2="+d2+" d3="+d3+" d4="+d4+" d5="+d5);
-									System.out.println(seccc);
-									System.out.println(energ1+energ2+energ3+energ4+energ5);
-								}
+
+							if (distance == totalDistanceToTravel) {
+								int energy = firstPace * energyIndex[0] + secondPace * energyIndex[1] + thirdPace * energyIndex[2] + fourthPace * energyIndex[3] + fifthPace * energyIndex[4];
+								if (energy <= totalEnergy) {
+									int timeCost = firstPace * timeIndex[0] + secondPace * timeIndex[1] + thirdPace * timeIndex[2] + fourthPace * timeIndex[3] + fifthPace * timeIndex[4];
+									if (timeCost < Answer) {
+										Answer = timeCost;
+									}
 								}
 							}
+
 						}
 					}
 				}
 			}
-			
-			System.out.println("#"+(i+1)+" "+final_time/60+" "+final_time%60);
-			
 		}
 	}
 
