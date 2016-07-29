@@ -1,0 +1,92 @@
+AngularJS is a framework to build large scale and high performance web application while keeping them as easy-to-maintain.
+ 
+What is data binding in AngularJS?
+Data binding is the automatic synchronization of data between model and view components. ng-model directive is used in data binding.
+
+What is scope in AngularJS?
+Scopes are objects that refer to the model. They act as glue between controller and view.
+
+What are the controllers in AngularJS?
+Controllers are JavaScript functions that are bound to a particular scope. 
+
+What are the filters in AngularJS?
+Filters select a subset of items from an array and return a new array based on some criteria.
+
+Explain directives in AngularJS.
+Directives are markers on DOM elements (such as elements, attributes, css, and more). These can be used to create custom HTML tags that serve as new, custom widgets.
+
+What is routing in AngularJS?
+It is concept of switching views. AngularJS based controller decides which view to render based on the business logic.
+
+What is deep linking in AngularJS?
+Deep linking allows you to encode the state of application in the URL so that it can be bookmarked. The application can then be restored from the URL to the same state.
+
+What are the advantages of AngularJS?
+Following are the advantages of AngularJS.
+1. AngularJS provides capability to create Single Page Application in a very clean and maintainable way.
+2. AngularJS provides data binding capability to HTML thus giving user a rich and responsive experience.
+3. AngularJS code is unit testable.
+4. AngularJS uses dependency injection and make use of separation of concerns.
+5. AngularJS provides reusable components.
+6. With AngularJS, developer writes less code and gets more functionality.
+7. In AngularJS, views are pure html pages, and controllers written in JavaScript do the business processing.
+8. AngularJS applications can run on all major browsers and smart phones including Android and iOS based phones/tablets.
+
+What are the disadvantages of AngularJS?
+Following are the disadvantages of AngularJS.
+1. Not Secure − Being JavaScript only framework, application written in AngularJS are not safe. Server side authentication and authorization is must to keep an application secure.
+2. Not degradable − If your application user disables JavaScript then user will just see the basic page and nothing more.
+
+Which are the core directives of AngularJS?
+Following are the three core directives of AngularJS.
+1. ng-app − This directive defines and links an AngularJS application to HTML.
+2. ng-model − This directive binds the values of AngularJS application data to HTML input controls.
+3. ng-bind − This directive binds the AngularJS Application data to HTML tags.
+
+Explain AngularJS boot process.
+When the page is loaded in the browser, following things happen:
+> HTML document is loaded into the browser, and evaluated by the browser. AngularJS JavaScript file is loaded; the angular global object is created. Next, JavaScript which registers controller functions is executed.
+> Next AngularJS scans through the HTML to look for AngularJS apps and views. Once view is located, it connects that view to the corresponding controller function.
+> Next, AngularJS executes the controller functions. It then renders the views with data from the model populated by the controller. The page gets ready.
+
+Explain ng-init directive.
+ng-init directive initializes an AngularJS Application data. It is used to put values to the variables to be used in the application.
+
+> In AngularJS, we call service any object regis
+
+What is the difference between one-way binding and two-way binding?
+– One way binding implies that the scope variable in the html will be set to the first value its model is bound to (i.e. assigned to)
+– Two way binding implies that the scope variable will change it’s value everytime its model is assigned to a different valuetered in a module through the following functions: value, service, factory, provider.
+
+How would you specify that a scope variable should have one-time binding only?
+By using “::” in front of it. This allows the check if the candidate is aware of the available variable bindings in AngularJS.
+
+Explain how $scope.$apply() works
+-$scope.$apply re-evaluates all the declared ng-models and applies the change to any that have been altered (i.e. assigned to a new value)
+Explanation: $scope.$apply() is one of the core angular functions that should never be used explicitly, it forces the angular engine to run on all the watched variables and all external variables and apply the changes on their values.
+
+What is the difference between ng-show/ng-hide and ng-if directives?
+ng-show/ng-hide will always insert the DOM element, but will display/hide it based on the condition. ng-if will not insert the DOM element until the condition is not fulfilled.
+ng-if is better when we needed the DOM to be loaded conditionally, as it will help load page bit faster compared to ng-show/ng-hide.
+We only need to keep in mind what the difference between these directives is, so deciding which one to use totally depends on the task requirements.
+
+How do you share data between controllers?
+Create an AngularJS service that will hold the data and inject it inside of the controllers.
+Using a service is the cleanest, fastest and easiest way to test.
+However, there are couple of other ways to implement data sharing between controllers, like:
+– Using events
+– Using $parent, nextSibling, controllerAs, etc. to directly access the controllers
+– Using the $rootScope to add the data on (not a good practice)
+The methods above are all correct, but are not the most efficient and easy to test.
+
+If you were to migrate from Angular 1.4 to Angular 1.5, what is the main thing that would need refactoring?
+Changing .directive to .component to adapt to the new Angular 1.5 components
+
+
+What makes the angular.copy() method so powerful?
+It creates a deep copy of the variable.
+A deep copy of a variable means it doesn’t point to the same memory reference as that variable. Usually assigning one variable to another creates a “shallow copy”, which makes the two variables point to the same memory reference. Therefore if we change one, the other changes as well.
+
+What is an interceptor? What are common uses of it?
+An interceptor is a middleware code where all the $http requests go through.
+The interceptor is a factory that are registered in $httpProvider. You have 2 types of requests that go through the interceptor, request and response (with requestError and responseError respectively). This piece of code is very useful for error handling, authentication or middleware in all the requests/responses.
