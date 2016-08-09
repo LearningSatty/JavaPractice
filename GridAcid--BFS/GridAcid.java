@@ -40,8 +40,11 @@ public class GridAcid {
 			{
 				e_cell_time = -1;
 				full_grid_time = -1;
+				System.out.println(e_cell_time+" "+(full_grid_time ));
+			}else {
+				
+				System.out.println(e_cell_time +" "+((full_grid_time>0)?(full_grid_time + 1):full_grid_time));
 			}
-			System.out.println(e_cell_time+" "+full_grid_time);
 		}
 		sc.close();
 	}
@@ -80,14 +83,13 @@ public class GridAcid {
 		// TODO Auto-generated method stub
 		MyAcidQ qu = new MyAcidQ((arr.length-1) *  (arr[0].length-1));
 		arr_vis[x][y] = 1;
-		qu.insert(new MyAcidData(x, y, 0, 1));
+		qu.insert(new MyAcidData(x, y, 0));
 		boolean b = true;
 		int t2 = 0;
 		while(!qu.isEmpty()){
 			MyAcidData d = qu.remove();
 			int xx =  d.x;
 			int yy = d.y;
-			int t1 = d.t1;
 			t2 = d.t2_grid;
 			
 			int s[]	={0, 1, 0, -1};
@@ -100,7 +102,7 @@ public class GridAcid {
 						if(checkAll4OneDir(arr_vis, xx1, yy1)){
 						if(b){
 							arr_vis[xx1][yy1] = 1;
-							e_cell_time = t2;
+							e_cell_time = t2+1;
 							b = false;
 						}
 						}
@@ -108,7 +110,7 @@ public class GridAcid {
 					}		
 					
 					arr_vis[xx+s[i]][yy+t[i]] = 1;
-					qu.insert(new MyAcidData(xx+s[i], yy+t[i], t1+1, t2+1));
+					qu.insert(new MyAcidData(xx+s[i], yy+t[i],  t2+1));
 				}
 				
 			}
@@ -170,14 +172,12 @@ class MyAcidQ{
 class MyAcidData {
 	int x;
 	int y;
-	int t1;
 	int  t2_grid;
-	public MyAcidData(int x, int y, int cost, int path) {
+	public MyAcidData(int x, int y,  int cost) {
 		super();
 		this.x = x;
 		this.y = y;
-		this.t1 = cost;
-		this.t2_grid = path;
+		this.t2_grid = cost;
 	}
 
 	
