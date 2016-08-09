@@ -1,0 +1,38 @@
+=====================
+Output:
+=====================
+Case #1
+-1 -1         ---> Count1    Count2  (refer to output description)
+Case #2
+-1 -1
+Case #3
+6 6
+Case #4
+6 6
+Case #5
+5 5
+Case #6
+6 6
+Case #7
+7 7
+Case #8
+5 9
+Case #9
+4 6
+Case #10
+-1 -1
+Case #11
+-1 -1
+Case #12
+-1 -1
+Case #13
+-1 -1
+Case #14
+-1 -1
+Case #15
+-1 -1
+Case #16
+-1 -1
+Case #17
+5 -1
+
