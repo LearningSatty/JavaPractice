@@ -3,100 +3,78 @@ package com.satty.practice.clone;
 import java.util.Scanner;
 
 public class Mario_Sol_With_BackTrack {
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-
-		int T = sc.nextInt();
-
-		for (int i = 0; i < T; i++) {
-			int posts = sc.nextInt();
-			int e_coins = 0;
-			// int e_bombs =0;
-			int[] p_flower = new int[posts];
-			int[] n_petals = new int[posts];
-			int[] coins = new int[posts];
-			int[] bombs = new int[posts];
-
-			int[] bombs_power = new int[3];
-
-			for (int j = 0; j < posts; j++) {
-				p_flower[j] = sc.nextInt();
-				n_petals[j] = sc.nextInt();
-				coins[j] = sc.nextInt();
-				bombs[j] = sc.nextInt();
+		int t_cases = sc.nextInt();
+		for (int t = 0; t < t_cases; t++) {
+			int gates = sc.nextInt();
+			Gate[] gates_desc = new Gate[gates];
+			for (int i = 0; i < gates; i++) {
+				gates_desc[i] = new Gate((sc.nextInt()==0?false:true), sc.nextInt(), sc.nextInt(), sc.nextInt());
 			}
-
-			for (int j = 0; j < posts; j++) {
-				
-				if (p_flower[j] == 0) {
-					e_coins = e_coins + coins[j];
-					bombs_power[2] = bombs[j];
-					if (j - 1 > 0)
-						bombs_power[1] = bombs[j - 1];
-					if (j - 2 > 0)
-						bombs_power[0] = bombs[j - 2];
-				} else {
-					if(e_coins<n_petals[j] && getpetal_fight_Bombs(bombs_power)<n_petals[j])
-					{
-						e_coins = -1;
-						break;
-					}
-					if (j == posts - 1) {
-						e_coins = e_coins + coins[j];
-						break;
-					}
-					if (bombs[j] > 0 && getpetal_fight_Bombs(bombs_power)!=0) {
-						e_coins = e_coins + coins[j];
-						bombs_power[2] = bombs[j];
-						bombs_power[1] = 0;
-						bombs_power[0] = 0;
-						//and snatch all previous bombs
-						for (int j2 = j; j2 >=0; j2--) {
-							bombs[j2] = 0;
-						}
-					}
-					
-					else if (getpetal_fight_Bombs(bombs_power) >= n_petals[j]) {
-							if(coins[j]==0){
-								
-								
-							}
-							
-					}
-					else if(getpetal_fight_Bombs(bombs_power) < n_petals[j]){
-						e_coins = e_coins - n_petals[j];
-						e_coins = e_coins + coins[j];
-						bombs_power[2] = bombs[j];
-						if (j - 1 > 0)
-							bombs_power[1] = bombs[j - 1];
-						if (j - 2 > 0)
-							bombs_power[0] = bombs[j - 2];
-					}
-					else if(bombs[j] == 0 && getpetal_fight_Bombs(bombs_power)!=0){
-						e_coins = e_coins + coins[j];
-						bombs_power[2] = bombs[j];
-						bombs_power[1] = 0;
-						bombs_power[0] = 0;
-						//and snatch all previous bombs
-						for (int j2 = j; j2 >=0; j2--) {
-							bombs[j2] = 0;
-						}
-					}
-
-				}
-
-			}
-			System.out.println("Case #" + (i+ 1));
-			System.out.println(e_coins);
+			final_coins = Integer.MIN_VALUE;
+			callBackTrack(gates_desc, 0, 0, 0, 0, 0);
+			System.out.println("Case #"+(t+1));
+			System.out.println(final_coins==Integer.MIN_VALUE?-1:final_coins);
 		}
 		sc.close();
 	}
 
-	public static int getpetal_fight_Bombs(int[] bombs) {
-		int petals = 0;
-		petals = bombs[0] + bombs[1] * 2 + bombs[2] * 5;
-		return petals;
+	private static int final_coins;
+	private static void callBackTrack(Gate[] gates_desc, int bomb1, int bomb2, int bomb3, int coins, int gate_no){
+		if(gate_no==gates_desc.length){
+			if(coins>final_coins)
+				final_coins = coins;
+			return;
+		}
+		//if dragon is not at gate
+		if(!gates_desc[gate_no].pak_avail){
+			callBackTrack(gates_desc, bomb2, bomb3, gates_desc[gate_no].bombs, coins+gates_desc[gate_no].coins, gate_no+1);
+		}
+		else{   //if dragon is at gate
+			//deals with all bomb/dragon snatch all your bombs and let you go
+			if(bomb1+bomb2+bomb3==0){
+				callBackTrack(gates_desc, bomb1, bomb2, gates_desc[gate_no].bombs, coins-gates_desc[gate_no].flow_petals+gates_desc[gate_no].coins, gate_no+1);
+			}
+			else{
+				callBackTrack(gates_desc, 0, 0, gates_desc[gate_no].bombs, coins+gates_desc[gate_no].coins, gate_no+1);
+			}
+			//
+			//deals with money
+			if(coins>=gates_desc[gate_no].flow_petals)
+				callBackTrack(gates_desc, bomb2, bomb3, gates_desc[gate_no].bombs, coins-gates_desc[gate_no].flow_petals+gates_desc[gate_no].coins, gate_no+1);
+			//
+			//attack on dragon
+			int temp1_bomb = bomb1;
+			int temp2_bomb = bomb2;
+			int temp3_bomb = bomb3;
+			int capacity = bomb1+bomb2*2+bomb3*5;
+			int fl_petas = gates_desc[gate_no].flow_petals;
+			if(capacity>=fl_petas){
+				if(fl_petas==capacity)
+					callBackTrack(gates_desc, 0, 0, 0, coins, gate_no+1);
+				else{
+					//finish older gates bombs first and then later ones.
+					while(capacity>0){
+						if(bomb1>0)
+							capacity--;
+						else if(bomb2>0){
+							capacity = capacity -2;
+						}
+						else if(bomb3>0){
+							capacity = capacity -3;
+						}
+					}
+				}
+				callBackTrack(gates_desc, bomb2, bomb1, 0, coins, gate_no+1);
+				bomb1 = temp1_bomb;
+				bomb2 = temp2_bomb;
+				bomb3 = temp3_bomb;
+			}
+			//
+		}
 	}
 }
 
