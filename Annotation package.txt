@@ -1,0 +1,119 @@
+o	org.springframework.beans.factory.annotation.Value 
+o	org.springframework.beans.factory.annotation.Qualifier 
+o	org.springframework.beans.factory.annotation.Autowired 
+o	org.springframework.beans.factory.annotation.Configurable 
+o	org.springframework.beans.factory.annotation.Required 
+o	org.springframework.beans.factory.annotation.Lookup 
+
+o	org.springframework.stereotype.Controller 
+o	org.springframework.stereotype.Component 
+o	org.springframework.stereotype.Service 
+o	org.springframework.stereotype.Repository 
+
+o	org.springframework.context.annotation.PropertySources 
+o	org.springframework.context.annotation.EnableLoadTimeWeaving 
+o	org.springframework.context.annotation.Bean 
+o	org.springframework.context.annotation.ComponentScans 
+o	org.springframework.context.annotation.Profile 
+o	org.springframework.context.annotation.Configuration 
+o	org.springframework.context.annotation.Import 
+o	org.springframework.context.annotation.
+o	org.springframework.context.annotation.
+o	org.springframework.context.annotation.
+o	org.springframework.context.annotation.Role 
+o	org.springframework.context.annotation.Conditional 
+o	org.springframework.context.annotation.Primary 
+o	org.springframework.context.annotation.EnableMBeanExport 
+o	org.springframework.context.annotation.
+o	org.springframework.context.annotation.ComponentScan.Filter 
+o	org.springframework.context.annotation.Description 
+o	org.springframework.context.annotation.Lazy
+o	org.springframework.context.annotation.Scope 
+o	org.springframework.context.annotation.DependsOn 
+
+o	org.springframework.context.event.EventListener 
+
+o	org.springframework.validation.annotation.Validated 
+
+o	org.springframework.scheduling.annotation.EnableScheduling
+o	org.springframework.scheduling.annotation.Schedules 
+o	org.springframework.scheduling.annotation.EnableAsync 
+o	org.springframework.scheduling.annotation.Scheduled 
+o	org.springframework.scheduling.annotation.Async 
+
+o	org.springframework.format.annotation.NumberFormat 
+o	org.springframework.format.annotation.DateTimeFormat 
+
+o	org.springframework.lang.UsesSunHttpServer 
+o	org.springframework.lang.UsesJava7 
+o	org.springframework.lang.UsesJava8 
+o	org.springframework.lang.UsesSunMisc 
+
+o	org.springframework.core.annotation.AliasFor 
+o	org.springframework.core.annotation.Order
+
+o	org.springframework.web.context.annotation.RequestScope 
+o	org.springframework.web.context.annotation.ApplicationScope 
+o	org.springframework.web.context.annotation.SessionScope
+
+o	org.springframework.web.bind.annotation.RequestBody 
+o	org.springframework.web.bind.annotation.DeleteMapping 
+o	org.springframework.web.bind.annotation.PutMapping 
+o	org.springframework.web.bind.annotation.RestControllerAdvice 
+o	org.springframework.web.bind.annotation.RequestMapping 
+o	org.springframework.web.bind.annotation.RequestPart 
+o	org.springframework.web.bind.annotation.CookieValue 
+o	org.springframework.web.bind.annotation.CrossOrigin 
+o	org.springframework.web.bind.annotation.RequestHeader 
+o	org.springframework.web.bind.annotation.ControllerAdvice 
+o	org.springframework.web.bind.annotation.RestController 
+o	org.springframework.web.bind.annotation.ResponseBody 
+o	org.springframework.web.bind.annotation.RequestParam 
+o	org.springframework.web.bind.annotation.ExceptionHandler 
+o	org.springframework.web.bind.annotation.RequestAttribute 
+o	org.springframework.web.bind.annotation.MatrixVariable 
+o	org.springframework.web.bind.annotation.SessionAttribute 
+o	org.springframework.web.bind.annotation.SessionAttributes 
+o	org.springframework.web.bind.annotation.ResponseStatus 
+o	org.springframework.web.bind.annotation.PostMapping 
+o	org.springframework.web.bind.annotation.InitBinder 
+o	org.springframework.web.bind.annotation.GetMapping 
+o	org.springframework.web.bind.annotation.PathVariable 
+o	org.springframework.web.bind.annotation.PatchMapping 
+o	org.springframework.web.bind.annotation.Mapping 
+o	org.springframework.web.bind.annotation.ModelAttribute 
+
+o	org.springframework.web.servlet.config.annotation.EnableWebMvc 
+
+o	org.springframework.web.portlet.bind.annotation.EventMapping 
+o	org.springframework.web.portlet.bind.annotation.ActionMapping 
+o	org.springframework.web.portlet.bind.annotation.ResourceMapping 
+o	org.springframework.web.portlet.bind.annotation.RenderMapping 
+
+o	org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker 
+o	org.springframework.web.socket.config.annotation.EnableWebSocket 
+
+o	org.springframework.test.context.TestPropertySource 
+o	org.springframework.test.context.web.WebAppConfiguration 
+o	org.springframework.test.context.jdbc.Sql 
+o	org.springframework.test.context.jdbc.SqlGroup 
+o	org.springframework.test.context.jdbc.SqlConfig 
+o	org.springframework.test.context.ContextConfiguration 
+o	org.springframework.test.context.ActiveProfiles 
+o	org.springframework.test.context.TestExecutionListeners 
+o	org.springframework.test.context.ContextHierarchy 
+o	org.springframework.test.context.transaction.AfterTransaction 
+o	org.springframework.test.context.transaction.BeforeTransaction 
+o	org.springframework.test.context.transaction.TransactionConfiguration 
+o	org.springframework.test.context.BootstrapWith
+
+o	org.springframework.test.annotation.IfProfileValue 
+o	org.springframework.test.annotation.Repeat 
+o	org.springframework.test.annotation.DirtiesContext 
+o	org.springframework.test.annotation.ProfileValueSourceConfiguration 
+o	org.springframework.test.annotation.Rollback 
+o	org.springframework.test.annotation.Commit 
+o	org.springframework.test.annotation.Timed 
+
+
+(All above annotation implements "java.lang.annotation.Annotation")
