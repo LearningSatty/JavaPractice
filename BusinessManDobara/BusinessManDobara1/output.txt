@@ -1,6 +1,100 @@
 Case #1
-72
+115
 Case #2
-560 
+186
 Case #3
-342
+330
+Case #4
+192
+Case #5
+457
+Case #6
+660
+Case #7
+602
+Case #8
+424
+Case #9
+933
+Case #10
+1357
+Case #11
+941
+Case #12
+2285
+Case #13
+1747
+Case #14
+1634
+Case #15
+1166
+Case #16
+2450
+Case #17
+2510
+Case #18
+4245
+Case #19
+1905
+Case #20
+2452
+Case #21
+3558
+Case #22
+2732
+Case #23
+4974
+Case #24
+8010
+Case #25
+5071
+Case #26
+4795
+Case #27
+6285
+Case #28
+5174
+Case #29
+9174
+Case #30
+7722
+Case #31
+7148
+Case #32
+8484
+Case #33
+8653
+Case #34
+8531
+Case #35
+6206
+Case #36
+8026
+Case #37
+11945
+Case #38
+8238
+Case #39
+8565
+Case #40
+12059
+Case #41
+15827
+Case #42
+7404
+Case #43
+16090
+Case #44
+16253
+Case #45
+14012
+Case #46
+21042
+Case #47
+7535
+Case #48
+22752
+Case #49
+20534
+Case #50
+11728
