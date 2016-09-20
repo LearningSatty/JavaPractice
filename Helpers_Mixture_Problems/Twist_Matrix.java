@@ -1,4 +1,3 @@
-package com.satty.nonsamsung;
 
 import java.util.Scanner;
 
@@ -22,6 +21,7 @@ public class Twist_Matrix {
 			System.out.println("Case #"+(t+1));
 			System.out.println(isTwistable);
 		}
+		sc.close();
 	}
 	static boolean isTwistable;
 	private static void call_twisting(int[][] arr, int i, int count) {
@@ -47,9 +47,9 @@ public class Twist_Matrix {
 				System.out.println(isTwistable);
 			}
 			}
-			return;
+			
 		}
-		for (int j = i; j < 12; j++) {
+		for (int j = i; j < (arr.length+arr[0].length); j++) {
 			int arr_temp[][] = new int[arr.length][arr[0].length];
 			for (int k = 0; k < arr.length; k++) {
 				for (int l = 0; l < arr[0].length; l++) {
@@ -67,7 +67,7 @@ public class Twist_Matrix {
 	}
 	private static void twistRoworCol(int j, int[][] arr) {
 		// TODO Auto-generated method stub
-		if(j<=5){
+		if(j<=arr.length-1){
 			for (int k = 0; k < arr[0].length/2; k++) {
 				int temp = arr[j][arr[0].length-k-1];
 				arr[j][arr[0].length-k-1] = arr[j][k];
@@ -75,6 +75,7 @@ public class Twist_Matrix {
 			}
 		}
 		else{
+;			j= j - arr.length;
 			for (int k = 0; k < arr.length/2; k++) {
 				int temp = arr[arr.length-k-1][j];
 				arr[arr[0].length-k-1][j] = arr[k][j];
