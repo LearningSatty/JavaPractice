@@ -1,0 +1,197 @@
+
+1	"What would be the result of following
+var TestVar;
+alert(TestVar +” ”+ typeof TestVar); 
+"	"a. null undefined
+b. undefined null
+c.  undefined undefined
+d. object object"	
+
+2	"What would be the result of following
+var TestVar = null;
+alert(TestVar+” ”+ typeof TestVar);
+"	"a. null undefined
+b. null null
+c. object object
+d. null object"	
+
+3	"What would be the result of following conditions:
+1. if(null === undefined)  
+2. if(null == undefined)  
+3. if(null === null)"	"a. false true false
+b. true false true
+c. false false true
+d. false true true"	
+4	"What would be the result if we write following statement:
+1. null = 'value'
+alert(null);
+2. undefined = 'value'
+alert(undefined);"	"a. ReferenceError  value
+b. value ReferenceError
+c. value value
+d. ReferenceError undefined"	
+5	"var dVar = 1;
+function scoppedVariables() {
+  undVar = 1;
+  var dVar = 2;
+dVar=3;
+}
+scoppedVariables();
+alert (undVar +""-""+dVar)"	"a. 1-2
+b. 1-3
+c. 1-1"	
+6	"What’s the result?           
+var result =  typeof typeof null;
+console.log(result);
+"	"a.  ‘undefined’
+b.  ‘string’
+c.  ‘null’
+d.  ‘object’
+e.  Error"	
+7	"What’s the result?
+var result = (7,6 - 5) * 2;
+  console.log(result);
+"	"a.  1
+b.  2
+c.  3
+d.  4
+e.  Error"	
+8	" What’s the result?
+function bob(a,b)  {
+ a = 5;
+console.log(
+arguments[0], arguments[1]);
+};
+bob(9,9,9);"	"a.  5,undefined
+b.  undefined,undefined
+c.  5,null
+d.  5,9
+e.  9,9
+f.  Error"	
+9	"What’s the result?
+var a = 1, b = a = typeof b;
+console.log(b) ;
+"	"a.  undefined
+b.  1
+c.  object
+d.  Number"	
+10	"What’s the result?
+console.log(1 && 7);
+"	"a.  Error
+b.  true
+c.  false
+d.  1
+e.  7"	
+11	"What’s the result?
+console.log(1 && 0);
+"	"a.  Error
+b.  0
+c.  false
+d.  1
+e.  true"	
+12	"What will be the result?
+var flag=false;
+var val=3;
+if(flag==""false"")
+{val=6;}
+console.log(val);"	"a. 3
+b. 6"	
+13	"What will be the result?
+function check(iVar)
+{
+ alert(chkSum);
+}
+check(5);"	"a. undefined
+b. 5
+c. ReferenceError
+d. 200"	
+14	"What will be the result?
+chkSum;
+function check()
+{
+ alert(chkSum);
+}
+check(5);"	"a. undefined
+b. 5
+c. ReferenceError
+d. 200"	
+15	"What will be the result?
+chkSum=0;
+function check()
+{
+ alert(chkSum);
+}
+check(5);"	"a. undefined
+b. 5
+c. ReferenceError
+d. 0"	
+16	"what is the output of the following code snippet?
+ var carname;
+   alert(carname);    
+   carname=""Volvo"";
+   alert(carname);     
+   var carname;
+   alert(carname); "	"a. undefined, Volvo, undefined
+b. undefined, Volvo, Volvo
+c. null, Volvo, Volvo
+d. null, Volvo, null "	
+17	"what is the output of the following code snippet?  
+   var a = (1,5 - 1) * 2
+   alert(a);"	"a. 2
+b. 8
+c. 0.5
+d. -0.5"	
+18	"var val = null;
+what is the correct syntax to check if a value is null
+"	"a. if (typeof val == null ) 
+b. if (val === null )
+c. if (!val)
+d. 2 and 3 
+e. All of the above"	
+19	what does ("1"+2+3 === 1+2+"3") evaluates to	"a. true
+b. false"	
+20	"what is the value item1 and item2 after running the following code snippet 
+   var item1 = '10';
+   var item2 = '20';
+   item1 = item1 *1;
+   item2 = item2 + item1;
+   item2 = item2 / item1;   
+   alert(item1); 
+   alert(item2);"	"a. 10, 201 
+b. 10, 30
+c. 10, NaN
+d. NaN, NaN"	
+21	"What’s the result of:
+alert(typeof typeof(undefined));"	"a. undefined
+b. Error
+c. string
+d. object"	
+22	"How do you define a numerical value?
+    "	"a. var mynum = new Math;
+b. var mynum = Math(6);
+c. var mynum = 6;
+d. Math.mynum = 6;"	c
+23	"What is the value of x after running the following code snippet?    
+    var y = 1, x = y = typeof y;
+    alert(x);"	"a. 1
+b. number
+c. undefined
+d. object"	b
+24	Which of these contains an executable statement?	"a. // var a = 0; // var b = 0;
+b. /* var a = 0; // var b = 0; */
+c. /* var a = 0; */ var b = 0;  
+d. // var a = 0; /* var b = 0; */"	c
+25	"var x = 5,
+    o = {
+        x: 10,
+        doIt: function doIt(){
+            var x = 20;
+            setTimeout(function(){
+                alert(this.x);
+            }, 10);
+        }
+    };
+o.doIt();"	"a. 10
+b. 5
+c. 20
+d. 15"	c
