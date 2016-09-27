@@ -1,0 +1,185 @@
+Q: console.log(+2);
+= 2
+
+Q: console.log(+"2");
+= 2
+
+Q: console.log(-"2");
+= -2
+
+Q: console.log(typeof "2");
+= strign
+
+Q: console.log(typeof (+"2"));
+= number
+
+Q: console.log("2"+3+4);
+= 234
+
+Q: console.log(2+3+"4");
+= 54
+
+Q: console.log(+"2"+3);
+= 5
+
+Q: console.log(2 + +"3");	//+"3" = 3
+= 5
+
+Q: console.log(2 + -"3");
+= -1
+
+Q: console.log(1 - - "2");	//-"2" = -2
+= 3
+
+Q: console.log(2 + +"hi");
+= NaN(Not a Number)
+
+Regarding the specific output of
+
+console.log(1 +  + "2");
+Run it on your browser console. The better question is why does it output what it does -
+
+console.log(1 +  + "2");
+              ^
+That is the binary + operator, which will concatenate strings or add numbers.
+
+console.log(1 +  + "2");
+                 ^
+That one is the unary + operator, which converts "2" to a number.
+In JavaScript it is possible to use the + operator alone before a single element. This indicates a math operation and tries to convert the element to a number. If the conversion fails, it will evaluate to NaN. This is especially useful when one wants to convert a string to a number quickly, but can also be used on a select set of other types.
+
+The unary + operator, when used on types other than string, will internally attempt to call valueOf() or toString() (in that order) and then attempt to convert the result to a number. Thusly, the unary + operator can successfully convert many of the native JS types with certain restrictions:
+
+Q: 1. console.log(1 +  -"1" + "2");
+
+   2. console.log( "A" + "B" + "2");
+
+   3. console.log( "A" + "B" + 2);
+   4. console.log( "A" - "B" + "2");
+   
+5. console.log( "A" - "B" + 2);
+A= 1. 02 
+   2. AB2
+   3. AB2	
+   4. Nan2
+   ("A" - "B" + "2" Outputs: "NaN2" Explanation: Since the - operator can not be applied to strings, and since neither "A" nor "B" can be converted to numeric values, "A" - "B" yields NaN which is then concatenated with the string "2" to yield “NaN2”.)
+   3. Nan
+   (As exlained above "A" - "B" yields NaN. But any operator applied to NaN with any other numeric operand will still yield NaN.)
+
+------------
+
+Q:function bob(a)  {
+
+      a = 5;
+
+      console.log(
+arguments[0]);
+
+  };
+  function bob(a,b)  {
+
+      a = 5;
+
+      console.log(
+arguments[0], arguments[1]);
+
+  };
+
+  bob(9,9,9);
+A= 5 9
+
+Q: function bob(a,b)  {
+
+      a = 5;
+
+      console.log(
+arguments[0], arguments[1]);
+
+  };
+
+   function bob(a)  {
+
+      a = 5;
+
+      console.log(
+arguments[0]);
+
+  };
+
+  bob(9,9,9);
+A= 5
+
+Q: function bob(a,b)  {
+
+      a = 5;
+
+      console.log(
+arguments[0], arguments[1]);
+
+  };
+
+   function bob(a)  {
+
+      a = 5;
+
+      console.log(
+arguments[0], arguments[1], arguments[2]);
+
+  };
+
+  bob(9,9,9);
+A= 5 9 9
+
+Q: function bob(a,b)  {
+
+      a = 5;
+
+      console.log(
+arguments[0], arguments[1]);
+
+  };
+
+  bob(9,9,9);
+A= 5 9 9
+
+Q: function bob(a,b, c)  {
+
+      a = 5;
+
+      console.log(
+arguments[0], arguments[1], arguments[2]);
+
+  };
+
+   function bob(a, b)  {
+
+      a = 5;
+
+      console.log(
+arguments[0], arguments[1]);
+
+  };
+
+  bob(9,9,9);
+A= 5 9
+so whatever is defined latest that will be executed.
+
+Q: console.log((10, 1));
+A= 1
+
+Q: console.log((10, 100));
+A= 100  (later one will be printed);
+
+Q: [a, b, ...rest] = [1, 2, 3, 4, 5];
+   console.log(a); // 1 
+   console.log(b); // 2
+   console.log(rest); // [3, 4, 5]
+A = answers are in comments.
+
+Q: var a=(console.log(1),console.log(2),console.log(3),4);
+   console.log(a);
+A= 4
+
+Q: var a=(console.log(1),console.log(2),console.log(3));
+   console.log(a);
+A= undefined
