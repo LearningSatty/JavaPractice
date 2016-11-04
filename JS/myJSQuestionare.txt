@@ -1255,6 +1255,26 @@ Ex- var a = [1,2,3];
     console.log(a.__proto__.__proto__); //return Object {}, which is the parent of Array.
 ===================================================================
 
+Q: Javscript Scopes?
+=  Javascript has two scopes. Global, and functional. If you declare a variable inside a function using the "var" keyword, it will be local to that function, and any inner functions. If you declare a variable outside of a function, it has global scope.
+Finally, "if you omit the var keyword when first declaring a variable, javascript assumes you wanted a global variable, no matter where you declare it."
+Ex- 
+function a() {
+   function b() {
+      alert('boo')
+   }
+   var c = 'Bound to local call object.'
+   d = 'Bound to global object.'
+}
+here c is local to function a(). without being preceded by var, 'd' is global. Do this to made d private:
+function a() {
+   function b() {
+      alert('boo')
+   }
+   var c = 'Bound to local call object.'
+   var d = 'Bound to local object.'
+}
+===================================================================
 Q: How to get a list of an object's prototype chain constructor names?
 
 
