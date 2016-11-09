@@ -1027,6 +1027,11 @@ Gets the height and width of the available space on the page
 4  window.screen 
 Gets information about the browser screen.
 You may think that screen is the same as innerHeight and innerWidth but they are not. As an example, create a new HTML page from your template with SCRIPT tags in the HEAD section. 
+ ----------------------------------------------------------
+| Ex- screen	// type screen in console.
+| o/p= screen
+Screen {availWidth: 1600, availHeight: 860, width: 1600, height: 900, colorDepth: 24…}
+ ----------------------------------------------------------
 5. window.navigator
 Used to gets information about the browser. The navigator object exposes lots of other objects you can use. For example, there's this one:
 window.navigator.cookieEnabled
@@ -1057,6 +1062,35 @@ Note*- Because no standards exists for BOM, each browser has its own implementat
 A complete Javascript is made up of 3 distinct parts:
   1. The Core(ECMAScript)	2. The DOM	3. The BOM
 
+Q: How will you Get the browser viewport dimensions with JavaScript?
+=  window.innerWidth and .innerHeight
+   -------------------------------------
+> gets CSS viewport @media (width) and @media (height) which include scrollbars
+> initial-scale and zoom variations may cause mobile values to wrongly scale down to what PPK calls the visual viewport and be smaller than the @media values
+> zoom may cause values to be 1px off due to native rounding
+> undefined in IE8-
+document.documentElement.clientWidth and .clientHeight
+-----------------------------------------------------
+> equals CSS viewport width minus scrollbar width
+> matches @media (width) and @media (height) when there is no scrollbar
+> same as jQuery(window).width() which jQuery calls the browser viewport
+
+Q: What will window.devicePixelRatio do?
+= It gives Physical screen size divided by ideal layout viewport in browsers.
+
+Q: What will window.pageX/YOffset do?
+= It gives the visual viewport’s scrolling offset relative to the document.
+
+Q: How will you get Mouse/touch coordinates?
+= 1. clientX/Y : In CSS pixels, relative to the visual viewport
+  clientX/Y = pageX/Y - window.pageX/YOffset	(visual)  
+  clientX/Y = pageX/Y + document.documentElement.getBoundingClientRect().left/top  (layout)
+   In browsers that don’t have a modern layout viewport window.pageX/YOffset is equal to -getBounding().left/top, and the coordinates relative to the layout and visual viewport seem to be the same. (In fact, the document element’s offset is calculated relative to the visual viewport.)
+  2. pageX/Y : In CSS pixels, relative to the document
+  3. screenX/Y : In CSS pixels, relative to the screen
+    screenX/Y = (pageX/Y - window.pageX/YOffset) *   (document.documentElement.clientWidth/Height / window.innerWidth/Height) - toolbarOffset;
+    toolbarOffset = screen.height - (window.innerHeight * (document.documentElement.clientWidth / window.innerWidth);
+  4.element.getBoundingClientRect().left/top returns the position of the element 
 Q: Important Data Types of DOM?
 =  1. document
    2. element	:element refers to an element or a node of type element returned by a member of the DOM API. for example, that the document.createElement() return element.
@@ -1275,10 +1309,288 @@ function a() {
    var d = 'Bound to local object.'
 }
 ===================================================================
+Q: what will be output of console.log(1 + []);
+= It will return string "1".
+
+Q: what will be output of console.log(1 + [0]);
+= It will return string "10".
+
+Q: What will be output of console.log(+"");
+=  It will give you string "0".
+
+Q: what will be output of console.log( +[]); 
+= It will return number 0.  Here [0] will be treated as string "" (well it is an array object but in this case empty string) and +string is treated as number.
+
+Q: Why does ++[[]][+[]]+[+[]] return the string “10”?
+=  
+1626
+down vote
+accepted
+If we split it up, the mess is equal to:
+
+++[[]][+[]]
++
+[+[]]
+In JavaScript, it is true that +[] === 0. + converts something into a number, and in this case it will come down to +"" or 0 (see specification details below).
+
+Therefore, we can simplify it (++ has precendence over +):
+
+++[[]][0]
++
+[0]
+Because [[]][0] means: get the first element from [[]], it is true that:
+
+[[]][0] returns the inner array ([]). Due to references it's wrong to say [[]][0] === [], but let's call the inner array A to avoid the wrong notation.
+++[[]][0] == A + 1, since ++ means 'increment by one'.
+++[[]][0] === +(A + 1); in other words, it will always be a number (+1 does not necessarily return a number, whereas ++ always does - thanks to Tim Down for pointing this out).
+Again, we can simplify the mess into something more legible. Let's substitute [] back for A:
+
++([] + 1)
++
+[0]
+In JavaScript, this is true as well: [] + 1 === "1", because [] == "" (joining an empty array), so:
+
++([] + 1) === +("" + 1), and
++("" + 1) === +("1"), and
++("1") === 1
+Let's simplify it even more:
+
+1
++
+[0]
+Also, this is true in JavaScript: [0] == "0", because it's joining an array with one element. Joining will concatenate the elements separated by ,. With one element, you can deduce that this logic will result in the first element itself.
+
+So, in the end we obtain (number + string = string):
+
+1
++
+"0"
+
+=== "10" // Yay!
+Specification details for +[]:
+
+This is quite a maze, but to do +[], first it is being converted to a string because that's what + says:
+
+11.4.6 Unary + Operator
+------------------------
+The unary + operator converts its operand to Number type.
+
+The production UnaryExpression : + UnaryExpression is evaluated as follows:
+
+Let expr be the result of evaluating UnaryExpression.
+Return ToNumber(GetValue(expr)).
+ToNumber() says:
+
+Object
+
+Apply the following steps:
+
+Let primValue be ToPrimitive(input argument, hint String).
+Return ToString(primValue).
+ToPrimitive() says:
+
+Object
+
+Return a default value for the Object. The default value of an object is retrieved by calling the [[DefaultValue]] internal method of the object, passing the optional hint PreferredType. The behaviour of the [[DefaultValue]] internal method is defined by this specification for all native ECMAScript objects in 8.12.8.
+[[DefaultValue]] says:
+
+8.12.8 [[DefaultValue]] (hint)
+-------------------------------
+When the [[DefaultValue]] internal method of O is called with hint String, the following steps are taken:
+
+Let toString be the result of calling the [[Get]] internal method of object O with argument "toString".
+If IsCallable(toString) is true then,
+a. Let str be the result of calling the [[Call]] internal method of toString, with O as the this value and an empty argument list.
+
+b. If str is a primitive value, return str.
+The .toString of an array says:
+
+15.4.4.2 Array.prototype.toString ( )
+
+When the toString method is called, the following steps are taken:
+
+Let array be the result of calling ToObject on the this value.
+Let func be the result of calling the [[Get]] internal method of array with argument "join".
+If IsCallable(func) is false, then let func be the standard built-in method Object.prototype.toString (15.2.4.2).
+Return the result of calling the [[Call]] internal method of func providing array as the this value and an empty arguments list.
+So +[] comes down to +"", because [].join() === "".
+
+Again, the + is defined as:
+
+11.4.6 Unary + Operator
+-----------------------
+The unary + operator converts its operand to Number type.
+
+The production UnaryExpression : + UnaryExpression is evaluated as follows:
+
+Let expr be the result of evaluating UnaryExpression.
+Return ToNumber(GetValue(expr)).
+ToNumber is defined for "" as:
+
+The MV of StringNumericLiteral ::: [empty] is 0.
+So +"" === 0, and thus +[] === 0.
+
+So, we can simplify [[]][0] to just [] and we have ++[], right? In fact, this is not the case because evaluating ++[] throws an error, which may initially seem confusing. However, a little thought about the nature of ++ makes this clear: it’s used to increment a variable (e.g. ++i) or an object property (e.g. ++obj.count). Not only does it evaluate to a value, it also stores that value somewhere. In the case of ++[], it has nowhere to put the new value (whatever it may be) because there is no reference to an object property or variable to update. In spec terms, this is covered by the internal PutValue operation, which is called by the prefix increment operator.
+
+So then, what does ++[[]][0] do? Well, by similar logic as +[], the inner array is converted to 0 and this value is incremented by 1 to give us a final value of 1. The value of property 0 in the outer array is updated to 1 and the whole expression evaluates to 1.
+-----------------------
+
+Q: Why does +!![]+''+(+[]) return the string “10”?
+= This one evaluates to the same but a bit smaller
++!![]+''+(+[])
+[] - is an array is converted that is converted to 0 when you add or subtract from it, so hence +[] = 0
+![] - evaluates to false, so hence !![] evaluates to true
++!![] - converts the true to a numeric value that evaluates to true, so in this case 1
++'' - appends an empty string to the expression causing the number to be converted to string
++[] - evaluates to 0
+so is evaluates to
+
++(true) + '' + (0)
+1 + '' + 0
+"10"
+
+So now you got that, try this one: 
+_=$=+[],++_+''+$   // this will also return "10";
+
+
+Some examples:
+==============
+1 + {} 		//    "1[object Object]"
+1 + [] 		//    "1"
+1 + new Date()  //    "1Wed Jun 19 2013 12:13:25 GMT+0400 (Caucasus Standard Time)"
+There's a nice exception that two Objects addition results in NaN:
+
+[] + []   //    ""
+[1] + [2] //    "12"
+{} + {}   //    NaN
+{a:1} + {b:2}     //    NaN
+[1, {}] + [2, {}] //    "1,[object Object]2,[object Object]"
+===================================================================
+Q: Javascript maximum size for types?
+
+In short, unless the browser specified otherwise, variable sizes are not subject to a restriction. As for Ajax: There's no limit, unless defined server-side.
+
+Q: Output of following:
+= Object.prototype.toString.call('abc') // [object String]
+  Object.prototype.toString.call(/abc/) // [object RegExp]
+  Object.prototype.toString.call([1,2,3]) // [object Array]
+  Object.prototype.toString.call([1,2,3]).slice(8, -1);  // Array
+ 
+Q: Some caveats in Javascript?
+= All of these are subject to one potential problem, and that is the question of how the object in question was constructed. Here are various ways of building objects and the values that the different methods of type checking will return:
+ ----------------------------------------------------------
+|    // using a named function:
+|    function Foo() { this.a = 1; }
+    var obj = new Foo();
+    (obj instanceof Object);          // true
+    (obj instanceof Foo);             // true
+    (obj.constructor == Foo);         // true
+    (obj.constructor.name == "Foo");  // true
+
+    // let's add some prototypical inheritance
+    function Bar() { this.b = 2; }
+    Foo.prototype = new Bar();
+    obj = new Foo();
+    (obj instanceof Object);          // true
+    (obj instanceof Foo);             // true
+    (obj.constructor == Foo);         // false
+    (obj.constructor.name == "Foo");  // false
+
+
+    // using an anonymous function:
+    obj = new (function() { this.a = 1; })();
+    (obj instanceof Object);              // true
+    (obj.constructor == obj.constructor); // true
+    (obj.constructor.name == "");         // true
+
+
+    // using an anonymous function assigned to a variable
+    var Foo = function() { this.a = 1; };
+    obj = new Foo();
+    (obj instanceof Object);      // true
+    (obj instanceof Foo);         // true
+    (obj.constructor == Foo);     // true
+    (obj.constructor.name == ""); // true
+
+
+    // using object literal syntax
+    obj = { foo : 1 };
+    (obj instanceof Object);            // true
+    (obj.constructor == Object);        // true
+    (obj.constructor.name == "Object"); // true
+
+
 Q: How to get a list of an object's prototype chain constructor names?
+= Way1: With pattern 
+ ---------------------------------------------------
+|function getConstructorChain(obj, type) {
+|    var cs = [], pt = obj;
+|    do {
+|       if (pt = Object.getPrototypeOf(pt)) cs.push(pt.constructor || null);
+|    } while (pt != null);
+|    return type == 'names' ? cs.map(function(c) {
+|        return c ? c.toString().split(/\s|\(/)[1] : null;
+|    }) : cs;
+|}
+|var d = document.querySelector('div');
+|console.log(getConstructorChain(d));
+|console.log(getConstructorChain(d, 'names'));
+|o/p= Array[6]		(first console o/p)
+|        0:function HTMLDivElement()...
+| 	1:function HTMLElement()...
+|	2:function Element()...
+|	3:function Node()...
+|	4:function EventTarget()...
+|	5:function Object()...
+|      Array[6]		(second console o/p)
+|        0:"HTMLDivElement"
+| 	1:"HTMLElement"
+|	2:"Element"
+|	3:"Node"
+|	4:"EventTarget"
+|	5:"Object"
+ ---------------------------------------------------
+Way2: In each class call SuperClassName.call() method:
+ ---------------------------------------------------
+|  function Base() {
+|    var curConstructor = arguments.callee;
+|  	this.constructorList = [curConstructor.name];
+|      
+|  	while(curConstructor.caller && curConstructor.caller.name !== ''){
+|  	  curConstructor = curConstructor.caller;
+|  		this.constructorList.push(curConstructor.name);
+|  	}
+|  	document.write('<p>Base Constructor List: ' + this.constructorList + '</p>');
+|  }
+|
+|  function SubA() {
+|    Base.call(this);
+|  }
+|
+|  SubA.prototype = Object.create(Base.prototype);
+|
+|  function SubA1() {
+|    SubA.call(this);
+|  }
+|
+|  SubA1.prototype = Object.create(SubA.prototype);
+|
+|    var o = new SubA1();
+|
+|    function oops() {
+|      var u = new SubA1();
+|    }
+|    oops();
+|
+| o/p: on Html pages you can see:
+|   Base Constructor List: Base,SubA,SubA1 
+|   Base Constructor List: Base,SubA,SubA1,oops
+ --------------------------------------------------- 
 
 
-Q: Use of 'prototype' vs. 'this' in JavaScript?
+
+
+
 
 
 
