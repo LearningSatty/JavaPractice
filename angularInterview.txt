@@ -90,3 +90,125 @@ A deep copy of a variable means it doesn’t point to the same memory reference 
 What is an interceptor? What are common uses of it?
 An interceptor is a middleware code where all the $http requests go through.
 The interceptor is a factory that are registered in $httpProvider. You have 2 types of requests that go through the interceptor, request and response (with requestError and responseError respectively). This piece of code is very useful for error handling, authentication or middleware in all the requests/responses.
+
+In that case, you don't need to use angular.copy()
+
+Explanation :
+
+= represents a reference whereas angular.copy() creates a new object as a deep copy.
+Using = would mean that changing a property of response.data would change the corresponding property of $scope.example or vice versa.
+Using angular.copy() the two objects would remain seperate and changes would not reflect on each other.
+
+
+Q:In how many ways you can send data from one controller to other controller?
+= 1. Using Services
+  2. using $emit, $broadcast and $on
+  3. share via $rootscope.
+
+
+Q: How to send broadcast to sibling div?
+<div ng-controller="ParentCtrl as parent" class="ng-scope">
+  <div ng-controller="SiblingOneCtrl as sib1" class="ng-scope"></div>
+  <div ng-controller="SiblingTwoCtrl as sib2" class="ng-scope"></div>
+</div>
+= If SiblingTwoCtrl fired $scope.$broadcast, then SiblingOneCtrl would never know it happened. This can be an annoyance, but a (slightly hacky-feely) remedy can be done:
+ ------------------------------------------------
+| $scope.$parent.$broadcast('myevent', 'Some data');
+ ------------------------------------------------
+
+Q: $rootScope.$emit versus $rootScope.$broadcast?
+= There is no point in using $rootScope.$emit because $rootScope has no $parent.
+but $rootScope.$broadcast will notify all $rootScope.$on as well as $scope.$on listeners.
+
+Q: If you have following situation:
+ -------------------------------------------------------------
+| <div ng-controller="ParentCtrl as parent" class="ng-scope">
+|  // ParentCtrl
+|  <div ng-controller="SiblingOneCtrl as sib1" class="ng-scope">
+|    // SiblingOneCtrl
+|  </div>
+|  <div ng-controller="SiblingTwoCtrl as sib2" class="ng-scope">
+|    // SiblingTwoCtrl
+|    <div ng-controller="ChildCtrl as child" class="ng-scope">
+|      // ChildCtrl
+|    </div>
+|  </div>
+| </div>
+ -------------------------------------------------------------
+Using $scope.$emit inside ChildCtrl would result in SiblingTwoCtrl and ParentCtrl only being notified, as the event doesn’t hit sibling scopes only direct ancestors (completely ignoring SiblingOneCtrl). 
+In this situation how you communicate child Ctrl with SiblingOneCtrl?
+= If we used $rootScope, however, then we can target $rootScope listeners as well.
+ ---------------------------------------------------------------
+| app.controller('SiblingOneCtrl',
+|  function SiblingOneCtrl ($rootScope) {
+|
+|  $rootScope.$on('rootScope:emit', function (event, data) {
+|    console.log(data); // 'Emit!'
+|  });
+|  
+|  $scope.$on('rootScope:broadcast', function (event, data) {
+|    console.log(data); // 'Broadcast!'
+|  });
+|  
+|  $rootScope.$on('rootScope:broadcast', function (event, data) {
+|    console.log(data); // 'Broadcast!'
+|  });
+|
+| });
+|
+|  app.controller('ChildCtrl',
+|  function ChildCtrl ($rootScope) {
+|
+|  $rootScope.$emit('rootScope:emit', 'Emit!'); // $rootScope.$on
+|  $rootScope.$broadcast('rootScope:broadcast', 'Broadcast'); 
+| // $rootScope.$on && $scope.$on
+| });
+  ---------------------------------------------------------------
+
+Q: What is $rootScope $destroy?
+= When using $rootScope.$on, we need to unbind those listeners each time the $scope is destroyed. $scope.$on listeners are automatically unbound, but we’ll need to call the above closure manually on the $destroy event:
+ ---------------------------------------------------------------
+| app.controller('ParentCtrl',
+|  function ParentCtrl ($scope) {
+|
+|  // $rootScope $on
+|  var myListener = $rootScope.$on('child', function (event, data) {
+|    //
+|  });
+|
+|  // $scope $destroy
+|  $scope.$on('$destroy', myListener);
+|
+| });
+ ---------------------------------------------------------------
+
+Q: How can you cancel events/ propogation in AngularJS?
+= If you choose to use $emit, one of your other $scope listeners can cancel it, so prevent it bubbling further. Using $broadcast has the opposite effect in which it cannot be cancelled!
+Cancelling an event which was sent via $emit looks like this:
+ ---------------------------------------------------------------
+| $scope.$on('myCustomEvent', function (event, data) {
+|   event.stopPropagation();
+| });
+ ---------------------------------------------------------------
+
+Q: What is $rootScope.$$listeners?
+= Every Angular Object has several properties, we can dig into them and observe what’s happening “under the hood”. We can take a look at $rootScope.$$listeners to observe the listeners lifecycle. We can also unsubscribe from events that way as well by using this (but I wouldn’t encourage it):
+ ---------------------------------------------------------------
+| $rootScope.$$listeners.myEventName = [];
+ ---------------------------------------------------------------
+
+Q: What is Event namespacing?
+= Generally if I’m working on a particular Factory, I’ll communicate to other Directives or Controllers or even Factories using a specific namespace for cleaner pub/subs, which keeps things consistent and avoid naming conflicts.
+If I were building an email application with an Inbox, we might use an inbox namespace for that specific section. This is easily integrated with a few simple examples:
+ ---------------------------------------------------------------
+| $scope.$emit('inbox:send'[, data]);
+| $scope.$on('inbox:send', function (event, data) {...});
+| 
+| $scope.$broadcast('inbox:delete'[, data]);
+| $scope.$on('inbox:delete', function (event, data) {...});
+|
+| $scope.$emit('inbox:save'[, data]);
+|$scope.$on('inbox:save', function (event, data) {...});
+ ---------------------------------------------------------------
+
+Q: 
