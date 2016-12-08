@@ -1,0 +1,58 @@
+		< SASS( Syntactically Awesome StyleSheets) >
+
+SASS Features:
+--------------
+> Nested Rules and Nested properties
+> Referencing Parent Selectors: &
+> @Rules and Directives
+
+
+SASS Data Types
+----------------
+SassScript supports seven main data types:
+numbers (e.g. 1.2, 13, 10px)
+strings of text, with and without quotes (e.g. "foo", 'bar', baz)
+colors (e.g. blue, #04a3f9, rgba(255, 0, 0, 0.5))
+booleans (e.g. true, false)
+nulls (e.g. null)
+lists of values, separated by spaces or commas (e.g. 1.5em 1em 0 2em, Helvetica, Arial, sans-serif)
+maps from one value to another (e.g. (key1: value1, key2: value2))
+
+
+@-Rules and Directives
+------------------------
+Sass supports all CSS3 @-rules, as well as some additional Sass-specific ones known as “directives.” 
+1. @include
+2. @content
+3. @extend
+4. How to declare a variable in SASS?
+5. How to declare a class name (syntax) in sass?
+6. Difference b/w @media and @media directives in sass?
+= @media directives in Sass behave just like they do in plain CSS, with one extra capability: they can be nested in CSS rules. If a @media directive appears within a CSS rule, it will be bubbled up to the top level of the stylesheet, putting all the selectors on the way inside the rule. This makes it easy to add media-specific styles without having to repeat selectors or break the flow of the stylesheet. For example:
+.sidebar {
+  width: 300px;
+  @media screen and (orientation: landscape) {
+    width: 500px;
+  }
+}
+is compiled to:
+.sidebar {
+  width: 300px; }
+  @media screen and (orientation: landscape) {
+    .sidebar {
+      width: 500px; } }
+
+7. @import
+8. @at-root
+9. @at-root (without: ...) and @at-root (with: ...)
+10. @debug
+11. @warn
+12. @error
+13. @if, @for, @each, @while
+14. @mixin
+
+> What is control directives and mixin directives?
+> How to use if-else loop and for loop in sass?
+> Function directive in SASS?
+> How you Reference Parent Selectors in sass?
+> 
