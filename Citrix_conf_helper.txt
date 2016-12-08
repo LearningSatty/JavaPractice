@@ -1,0 +1,98 @@
+Citrix Configuration:
+1. Enter the Xen Desktop/ XenApp URL.
+2. start with 'https://', after this entering you can see others options.
+3. check on checkbox to verify XD certificate.
+3. Upload Certificate by clicking on 'browse' button.
+4. Click on the 'Configure' Button.
+5. After this it will show you the status of URL as well as Certificate Verification.
+6. It everything is Ok, you get the green right sign on left sidebar ('Citrix') this setting is successfully configured. 
+7. Red Wrong sign tends to 'Not configured'.
+
+Directory Configuration:
+1. Enter the LDAP URL(ex-  ldap://HQGADC001.corp.samsungelectronics.net/ou=Employee,dc=corp,dc=samsungelectronics,dc=net
+).
+2. Enter the username.
+3. Enter the password.
+4. Click on checkbox to enable SSL.
+5. Click on 'OK' to configure it.
+6. If you get the green right sign on left sidebar ('Directory') this setting is successfully configured. 
+7. Red Wrong sign tends to 'Not configured'.
+
+FailOver Configuration:
+1. This configuration is used to handle the server's failover conditions.
+2. If it is not configured it will show you red cross sign on left sidebar otherwise there will be green right sign.
+3. In 'Not Configured' status you can see only the local IP there.
+4. To add a server click the '+Add' button.
+5. Enter the 'Server IP' (ex- 107.109.202.36) and 'Virtual IP Address' (ex- 107.109.202.3).
+6. Click on 'OK' to configure.
+7. To sync the database of both server click on 'Force Sync'.
+8. Click on 'FailOver' to .
+9. Click on 'Clear' to remove the Failover Server.
+
+User Roles Configuration:
+
+1. To configure this setting you have to firstly configure the 'Directory Conifuration'.
+2. If 'Directory Configuration' is configured then it will show you the directory structure.
+3. There are two roles: Full Access and Read Only for directory.
+4. You can click on '^' icons to expand the inside directory.
+5. Choose the directory after clicking on checkbox and to enter them into below list click on button.
+6. Click on 'OK' to update the user roles for selected directories.
+7. You can also delete them by selecting the directories below tree.
+8. For permanent deleting you have to press 'OK' after pressing delete button.
+9. To search a user simple type the searching text (ex-*User) it will give you the filtered list.
+
+
+Backup Configuration:
+1. Enter URL (ex- \\127.0.0.1\rmsshare or smb://127.0.0.1/rmsshare), Username and Password.
+2. If you want backup should be automatically scheduled the check the box.
+3. Press Configure button to configure your Backup and Restore Settings.
+4. If you get the green right sign on left sidebar the backup is successfully configured.
+5. After the succesfull configuration you can see list of all previously taken backup.
+6. You can select the desired backup from list and can delete or restore corresponding backup.
+7. You can take Backup right now also.
+8. Red Wrong sign tends to 'Not configured'.
+
+Platform Settings:
+1. There are 4 settings, click to configure corresponding Settings.
+
+
+
+Network Settings Configuration:
+1. If you want to use DHCP then click on checbox.
+2. Otherwise, Enter the IP Address.
+3. Enter the Network Mask.
+4. Enter the Gateway.
+5. Enter the Primary DNS.
+6. Enter the secondary DNS.
+7. Enter the Domain.
+8. Click on the 'Save & Restart' to succesfully configure this setting.
+9. If you get the green right sign on left sidebar ('Network') this setting is successfully configured. 
+10. Red Wrong sign tends to 'Not configured'.
+
+Email Settings Configuration:
+1. Enter the SMTP Host with port number(ex- 255.255.255.12:25)
+2. Enter the username and password.
+3. Enter the 'from' Address(ex-a@sam.com).
+4. Check TLS to enable it.
+4. Enter the recipients Adresses to send test mail.
+5. Click 'Send Test Mail' to send test mail.
+6. Click 'Configure' to configure successfully.
+7. If you get the green right sign on left sidebar ('Email') this setting is successfully configured.
+8. Red Wrong sign tends to 'Not configured'.
+9. Click 'Remove' to remove configuration
+
+
+Certificate Settings Configuration:
+1. If you want to configure with default setting click on checkbox.
+2. Otherwise, upload the certificate file you have by clicking on 'browse' button.
+3. Enter the certificate password.
+4. Click on the 'Save & Restart' to succesfully configure this setting.
+5. If you get the green right sign on left sidebar ('Certificate') this setting is successfully configured.
+6. Red Wrong sign tends to 'Not configured'.
+
+Software Upgrade Settings Configuration:
+1. You can see the version here.
+2. Upload the upgrade file you have by clicking on 'browse' button.
+4. Click on the 'OK' to succesfully configure this setting.
+5. If you get the green right sign on left sidebar ('Software Upgrade') this setting is successfully configured.
+6. Red Wrong sign tends to 'Not configured'.
