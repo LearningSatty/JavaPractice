@@ -10,15 +10,11 @@
 10. Write a function that returns true if a given undirected graph is tree and false otherwise.
 11. Direct Acyclic Graph
 12. Given a binary tree, I was asked to serialize that tree and store it as a file format and retrieve it back to the form of a binary tree.
-13. An binary tree is given. He asked me to serialize and deserialize the given binary tree. I gave him the approach using pre order traversal and store the elements in array and using another 
-
-array which will store whether a node element is leaf node or internal node. He was convinced with the approach. Then he asked me to write the code for the same logic.
+13. An binary tree is given. He asked me to serialize and deserialize the given binary tree. I gave him the approach using pre order traversal and store the elements in array and using another array which will store whether a node element is leaf node or internal node. He was convinced with the approach. Then he asked me to write the code for the same logic.
 14.  finding the middle element of a linked list
 15. printing the vertical sum of a tree.(http://www.geeksforgeeks.org/vertical-sum-in-a-given-binary-tree/)
 16. Sum of two linked list?(http://www.geeksforgeeks.org/sum-of-two-linked-lists/)
-17. Given a running stream of integers. I need to find the median of the running stream. I gave   solution using heaps. He was interested in the approach using tree, after a hint i was able to 
-
-solve it using tree. He was convinced by my approach
+17. Given a running stream of integers. I need to find the median of the running stream. I gave   solution using heaps. He was interested in the approach using tree, after a hint i was able to solve it using tree. He was convinced by my approach
 18. An infix expression is given and i need to evaluate this expression. create logic to convert the infix expression to post fix expression.
 19. Given a post order traversal of a binary search tree. He asked me to write a clean code to create a BST using the given post order traversal and return the root of the BST.
 20. There are two linked lists. Both linked lists have a single-digit number in their nodes. I needed to
@@ -76,15 +72,11 @@ LRU cache implementation.
 2. implement Linked hash map using Linked list and hash map.
 3. Given N ropes of lengths L1, L2, L3, L4...., LN. I had to join every rope to get a final rope of length L1+L2+L3+...+LN. 
 However, I can join onlu two ropes at a time and the cost of joining the two ropes is L1+L2. I was supposed to join ropes in such a way that the cost is minimum?
-4. Given an input string and a dictionary of words, find out if the input string can be segmented into a space-separated sequence of dictionary words. http://www.geeksforgeeks.org/dynamic-
-
-programming-set-32-word-break-problem
+4. Given an input string and a dictionary of words, find out if the input string can be segmented into a space-separated sequence of dictionary words. http://www.geeksforgeeks.org/dynamic-programming-set-32-word-break-problem
 5. Given an array of 0s and 1s . I was asked to return the index of a zero turning which will produce a longest continuous 1s.
 Ex 1 0 1 1 0 1 0 1 1 1 0 1. here turning the last 0 to 1 will form 5 ones. this is the longest of all.
 6. Spiral printing of 2D matrix.(http://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/)
-7. Given an unsorted array which contains unique numbers from 0 to 999 and size of array is 1000. At one of the index the element has been replaced by some other element. I need to find the 
-
-original element. Only logic was required.
+7. Given an unsorted array which contains unique numbers from 0 to 999 and size of array is 1000. At one of the index the element has been replaced by some other element. I need to find the original element. Only logic was required.
 8. Given n non-negative integers representing an 2-D elevation map where the width of each bar is 1, i need to compute how much water it is able to trap after raining.
 Input: arr[] = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
 Output: 6
@@ -94,12 +86,8 @@ _|_||_||||||
 Trap "1 unit" between first 1 and 2, "4 units" between
 first 2 and 3 and "1 unit" between second last 1 and last 2
 (http://www.geeksforgeeks.org/trapping-rain-water/)
-9. Given a 2-D plane and number of points are given on that 2-D plane which are represented by its (x,y) co-ordinates. So i need to find the maximum number of points which can be lie on a single 
-
-line.
-Answer : I gave the solution using hashing, i calculate the slope using any two points, now one by one checks the slope with other points if slope matches i will increase the count for that 
-
-particular slope in hash map. Now i will traverse the hash map and find the maximum. Time complexity O(n2).
+9. Given a 2-D plane and number of points are given on that 2-D plane which are represented by its (x,y) co-ordinates. So i need to find the maximum number of points which can be lie on a single line.
+Answer : I gave the solution using hashing, i calculate the slope using any two points, now one by one checks the slope with other points if slope matches i will increase the count for that particular slope in hash map. Now i will traverse the hash map and find the maximum. Time complexity O(n2).
 Then discussion happens on what if slope comes out to be something that can even not be stored in type “long double”, what to do then.
 10. Given the encoding rule:
 A -> 0
@@ -131,9 +119,7 @@ The maximum square sub-matrix with all set bits is
     1  1  1
     1  1  1
 16. Count Inversions in an array 
-Inversion Count for an array indicates – how far (or close) the array is from being sorted. If array is already sorted then inversion count is 0. If array is sorted in reverse order that inversion 
-
-count is the maximum. 
+Inversion Count for an array indicates – how far (or close) the array is from being sorted. If array is already sorted then inversion count is 0. If array is sorted in reverse order that inversion count is the maximum. 
 Formally speaking, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j Example:
 The sequence 2, 4, 1, 3, 5 has three inversions (2, 1), (4, 1), (4, 3).
 17. [Shiv Prakash] - AM 11:58                
@@ -177,9 +163,7 @@ We can solve this using this http://www.geeksforgeeks.org/dynamic-programming-su
 Description: The game shop will distribute preloaded cards. That card needs to be used to play any game. if the card has balance the cardholder will be allowed to play the game.
 12. Design chessboard. I was asked to write all the classes.
 13. Discussion on what data structure i will use to implement recommendation engine. e.g. if someone buy mobile from Amazon, it should recommend the ear phones, power bank etc.
-14. there is a news publishing/subscribing product of Amazon where electronic contents are collected from owners like newspaper, magazines. Customer is using kindle. Design how customer will get 
-
-the content when his system kindle connects to net. how to send the contents to device?
+14. there is a news publishing/subscribing product of Amazon where electronic contents are collected from owners like newspaper, magazines. Customer is using kindle. Design how customer will get the content when his system kindle connects to net. how to send the contents to device?
 
 
 
@@ -197,6 +181,8 @@ Algo:
 11. Convex Hull | Set 2 (Graham Scan)
 12. m-coloring problem (with backtracking and BFS)
 13. Is graph Bi-partite or not? (using m-coloring problem with m=2)
+14. Find No. of Island? (With DFS and With Disjoint Sets)
+15. 
 
 
 
