@@ -1,0 +1,302 @@
+
+Q: How to set 100% - npx in CSS?
+A=
+/* Firefox */
+height: -moz-calc(100% - 18px);
+/* WebKit */
+height: -webkit-calc(100% - 18px);
+/* Opera */
+height: -o-calc(100% - 18px);
+/* Standard */
+height: calc(100% - 18px);
+
+Q: Center align image within div horizontally?
+=
+Way 1: 
+#artiststhumbnail a img {
+    display:block;
+    margin:auto;
+}
+----
+Way2: 
+I would set your larger div with position:relative; then for your image do this:
+img.classname{
+   position:absolute;
+   top:50%;
+   left:50%;
+   margin-top:-25px;
+   margin-left:-25px;
+}
+----
+Way3:
+Absolute position in combination with automatic margin permits to center an element horizontally and vertically
+img {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+Q: What is nth child selector in CSS3? How you can relate it to even and odd rules?
+=  
+Better use of it in desinging calendar or grid with even row of one color and odd row of different color.
+Ex- https://www.w3.org/Style/Examples/007/evenodd.en.html
+
+Q: How do you animate a single word in a sentence with CSS?
+= Links: http://stackoverflow.com/questions/30381672/animate-a-single-word-in-a-sentence-with-css
+Ex- http://codepen.io/tjacobdesign/pen/WvGXEZ
+
+Q: Setting a divs background image to fit its size?
+= If you'd like to use CSS3, you can do it pretty simply using background-size, like so:
+	 background-size: 100%
+to scale the background image to fit inside the div:
+	background-size: contain;
+To scale the background image to cover the whole div:
+	background-size: cover;
+links:
+http://stackoverflow.com/questions/9262861/css-background-image-to-fit-width-height-should-auto-scale-in-proportion
+
+Q: When to use img vs when to use div background-image?
+= 
+
+
+Q: What is background-position property in CSS?
+= The background-position property in CSS allows you to move a background image (or gradient) around within its container.
+ ---------------------------------
+|  html {
+|  	background-position: 100px 5px; 
+| }
+ ---------------------------------
+Length values are pretty simple: the first value is the horizontal position, second value is the vertical position. So 100px 5px will move the image 100px to the right and five pixels down. You can set length values in px, em, or any of the other CSS length values.
+
+Percentages work a little differently. Get your math hats out: moving a background image by X% means it will align the X% point in the image to the X% point in the container. For example, 50% means it will align the middle of the image with the middle of the container. 100% means it will align the last pixel of the image with the last pixel of the container, and so on.
+
+Keywords are just shortcuts for percentages. It's easier to remember and write top right than 0 100%, and that's why keywords are a thing. Here is a list of all five keywords and their equivalent values:
+
+top: 0% vertically
+right: 100% horizontally
+bottom: 100% vertically
+left: 0% horizontally
+center: 50% horizontally if horizontal isn't already defined. If it is then this is applied vertically.
+It's interesting to note that it doesn't matter what order you use for the keywords: top center is the same as center top. You can only do this if you're exclusively using keywords, though. center 10% is not the same as 10% center.
+
+
+Q:how do you make text change every __ second?
+
+
+Q: What is the meaning of auto value in a CSS property?
+
+
+Q: What you will do in ::before and ::after in CSS of div and other elements?
+= 
+
+Q: What is clear:both property?
+
+Q: What is clearfix property?
+
+Q: What is overflow property?
+
+Q: What is CSS3 :nth-child() Selector and CSS3 :last-child Selector?
+
+Q: Define all CSS cursor property?
+= 
+<span style="cursor:auto">auto</span><br>	  		
+<span style="cursor:crosshair">crosshair</span><br>
+= + like cursor
+<span style="cursor:default">default</span><br>
+= simple arrow 
+<span style="cursor:e-resize">e-resize</span><br>
+<span style="cursor:grab">grab</span><br>
+= 'I' shape like cursor
+<span style="cursor:help">help</span><br>
+= arrow with question mark
+<span style="cursor:move">move</span><br>
+=  four dimension arrow to strech on all four sides.     
+<span style="cursor:n-resize">n-resize</span><br>
+<span style="cursor:ne-resize">ne-resize</span><br>
+<span style="cursor:nw-resize">nw-resize</span><br>
+<span style="cursor:pointer">pointer</span><br>
+= hand like cursor which is for linking generally
+<span style="cursor:progress">progress</span><br>
+= arrow with moving round circle progress bar attached.
+<span style="cursor:s-resize">s-resize</span><br>
+<span style="cursor:se-resize">se-resize</span><br>
+<span style="cursor:sw-resize">sw-resize</span><br>
+<span style="cursor:text">text</span><br>
+<span style="cursor:w-resize">w-resize</span><br>
+<span style="cursor:wait">wait</span><br>
+= moving round circle progress bar
+<span style="cursor:not-allowed">not-allowed</span><br>
+= red-color circle like we used on banned things
+<span style="cursor:no-drop">no-drop</span><br>
+= same as not allowed.
+
+Q: What is ::after and ::before selectors? What is the reason to use it?
+=The ::after selector inserts something after the content of each selected element(s).
+> Use the content property to specify the content to insert.
+> Use the ::before selector to insert something before the content.
+
+Q; How to Change an input's HTML5 placeholder color with CSS?
+=  For the input like: <input placeholder="Stack Snippets are awesome!">
+It will be different for different-2 browsers:
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #909;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #909;
+}
+Usage notes
+------------
+1. Be careful to avoid bad contrasts. Firefox's placeholder appears to be defaulting with a reduced opacity, so needs to use opacity: 1 here.
+2. Note that placeholder text is just cut off if it doesn’t fit – size your input elements in em and test them with big minimum font size settings. Don’t forget translations: some languages need more room for the same word.
+3. Browsers with HTML support for placeholder but without CSS support for that (like Opera) should be tested too.
+4. Some browsers use additional default CSS for some input types (email, search). These might affect the rendering in unexpected ways. Use the properties -webkit-appearance and -moz-appearance to change that. Example:
+    [type="search"] {
+        -moz-appearance:    textfield;
+        -webkit-appearance: textfield;
+        appearance: textfield;
+    }
+If you are using Bootstrap and couldn't get this working then probably you missed the fact that Bootstrap itself adds these selectors. This is Bootstrap v3.3 we are talking about.
+If you are trying to change the placeholder inside a .form-control CSS class then you should override it like this:
+.form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #777;
+}
+
+Q: What do you mean by this line in HTML code->
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+=
+ 
+Q: What is this means: border-radius: 5px 0 0 5px;?
+= This expands to 
+    border-top-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+
+Q: What is descendent selector?
+= for ex- .sidebar h3
+
+Q: What is OOCSS?
+= It is Object Oriented CSS.
+
+
+Q: Can I use the :after pseudo-element on an input field?
+= With pure css you cannot but with jquery and other you can.
+:before and :after render inside a container 
+and <input> can not contain other elements.
+Pseudo-elements can only be defined (or better said are only supported) on container elements. Because the way they are rendered is within the container itself as a child element. 
+input can not contain other elements hence they're not supported. A button on the other hand that's also a form element supports them, because it's a container of other sub-elements.
+
+Q: What are the Pseudo Class Selectors and Pseudo elements in CSS?
+= Pseudo class selectors are CSS selectors with a colon preceding them. You are probably very familiar with a few of them. Like hover, after, before etc.Some of them are CSS3 and some of CSS2.
+These have not good suppor in IE 8 but it is fully supported in IE 9.
+1. Link-related pseudo class selectors
+  > :link
+  > :hover
+  > :visited
+  > :active
+2. Input & link related pseudo class selectors 
+  > :focus
+  > :target
+  > :enabled
+  > :disabled
+  > :checked (Selects checkboxes that are, wait for it, checked.)
+  > :indeterminate (when no radiobutton is seleted in group)
+3. Position/Number-based pseudo class selectors
+  > :root
+  > :first-child [Selects the first element within a parent.]
+  > :last-child  [Selects the last element within a parent.]
+  > :nth-child()
+    [Selects elements based on a simple provided algebraic expression (e.g. "2n" or "4n-1"). Has the ability to do things like select even/odd elements, "every third", "the first five", and things like that.]
+  > :nth-of-type()
+     [Works like :nth-child, but used in places where the elements at the same level are of different types. Like if inside a div you had a number of paragraphs and a number of images. 
+      You wanted to select all the odd images. :nth-child won't work there, you'd use div img:nth-of-type(odd). Particularly useful when working with definition lists and their alternating <dt> and <dd> elements.]
+  > :first-of-type
+  > :last-of-type
+  > :nth-last-of-type()
+  > :only-of-type
+4. Relational pseudo class selectors
+  > :not() (So for example, all divs except those with a class of "music" = div:not(.music).)
+	   (Also useful in conjunction with attribute selectors, e.g. input:not([disabled]).)
+  > :empty (Selects elements which contain no text and no child elements. Like: <p></p>)
+5. Text-related pseudo class selectors / elements
+  > ::first-letter [Selects the first letter of the text in the element. Typical use: dropcaps.]
+  > ::first-line  [Selects the first line of text in the element. Typical use: setting the first sentence in small-caps as a typographical eye-catcher / lead-in.]
+  > :lang [or example, :lang(fr) will match any paragraph, even without a lang attribute, if the parent body had lang="fr" as an attribute.]
+6. Content-related pseudo "elements"
+  > ::before 
+    Is able to add content before a certain element. For example, adding an opening quote before a blockquote or perhaps an preceding image to set apart a particular paragraph.
+  > ::after
+    Is able to add content after a certain element. For example, a closing quote to a blockquote. Also used commonly for the clearfix, where an empty space is added after the element which clears the float without any need for extra HTML markup.
+[Ref: https://css-tricks.com/pseudo-class-selectors/]
+
+Q: Pseudo Elements vs Pseudo Selectors?
+= These are appropriately called pseudo "elements" (not selectors) because they don't select any "real" element that exists on the page. This goes for these two, as well as the previous sections :first-letter and :first-line. 
+Make sense? Like the first letter that ::first-letter selects isn't an element all to itself, it's just a part of an existing element, hence, pseudo element.
+Style   | Name		|	selects		    | specify
+-------------------------------------------------------------
+ ::   	|pseudo element	|some actual content	    | 0 0 0 1
+ :    	|pseudo selector|elements in some conditions| 0 0 1 0
+-------------------------------------------------------------
+
+Q: How will you do CSS Tools: Reset CSS?
+= The goal of a reset stylesheet is to reduce browser inconsistencies in things like default line heights, margins and font sizes of headings, and so on.
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
