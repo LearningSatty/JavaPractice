@@ -1,0 +1,57 @@
+Q: What is CSS precedence id or class?
+=  id
+
+
+
+==================================================
+
+Q: What is gutter in bootstrap grid?
+
+Q: What concept bootstrap use for dividing grid?
+=  Media Queries.
+
+Q: What is jumbotron class in bootstrap?
+=
+
+Q; 
+
+Q: Bootstrap Forms?
+= 1. Bootstrap Vertical Form (Default) 
+   (.form-control) class
+  2. Bootstrap Inline Form
+   (.form-inline) class [This only applies to forms within viewports that are at least 768px wide!]
+  3. Bootstrap horizontal Form
+   A. (.form-horizontal) class to the <form> element
+   B. (.control-label) to all <label> elements
+  4. There might be a situation when you need to place just plain text next to a form label instead of a form control. You can do this within a horizontal form layout by using the 
+     .form-control-static class on a <p> element
+
+Q: Checkboxes and radio-button in bootstrap?
+= 
+<form>
+        <h4>Choose your favorite sports</h4>
+        <div class="checkbox">
+            <label><input type="checkbox" name="sports"> Cricket</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" name="sports"> Football</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" name="sports"> Tennis</label>
+        </div>
+        <hr>
+        <h4>Choose your gender</h4>
+        <div class="radio">
+            <label><input type="radio" name="gender"> Male</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="gender"> Female</label>
+        </div>
+    </form>
+
+Q: What is data-toggle attributes in bootstrap?
+
+Q: What is "sr-only" class in bootstrap?
+= According to bootstrap’s documentation, the class is used to hide information used for screen readers.
+
+Q: 
