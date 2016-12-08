@@ -734,11 +734,25 @@ Q: What is an IIFE?
 (function () { // open IIFE
     // inside IIFE
 }()); // close IIFE
-
+It is a self-executing anonymous function. The first set of parentheses contain the expressions to be executed, and the second set of parentheses executes those expressions.
+It is a useful construct when trying to hide variables from the parent namespace. All the code within the function is contained in the private scope of the function, meaning it can't be accessed at all from outside the function, making it truly private.
 Here are some things to note about an IIFE:
 1. It is immediately invoked.
 2. It must be an expression.
 3. The trailing semicolon is required.
+With this construct you are creating an anonymous function with its own evaluation environment or closure, and then you immediately evaluate it. The nice thing about this is that you can access the variables declared before the anonymous function, and you can use local variables inside this function without accidentally overwriting an existing variable.
+Ex-
+for(var i=0; i<5; i++) {
+  setTimeout(
+     (function(j) {
+       return function(){alert(j)};
+     })(i), 10);
+}
+With the immediate evaluation of the outer function you are creating a completely independent variable named j in each iteration, and the current value of i will be copied in to this variable, so you will get the result what was naively expected from the first try.
+Also, you can use it for wrapping long code for " =?: " operator like:
+ ------------------------
+| result = exp_to_test ? (function(){... long_code ...})() : (function(){...})();
+ ------------------------
 
 Q: How you convert a number into string in Javascript?
 = With method invocations, it is important to distinguish between the floating-point dot and the method invocation dot. Thus, you cannot write "1.toString();" you must use one of the following alternatives:
@@ -1587,12 +1601,58 @@ Way2: In each class call SuperClassName.call() method:
 |   Base Constructor List: Base,SubA,SubA1,oops
  --------------------------------------------------- 
 
+Q: What is event delegation in Javascript? What is Event Bubbling and Event Capturing and difference between them?
+=
+
+Event bubbling and capturing are two ways of event propagation in the HTML DOM API, when an event occurs in an element inside another element, and both elements have registered a handle for that event. The event propagation mode determines in which order the elements receive the event.
+1. With bubbling, the event is first captured and handled by the innermost element and then propagated to outer elements.
+2. With capturing, the event is first captured by the outermost element and propagated to the inner elements.
+Capturing is also called "trickling", which helps remember the propagation order:
+trickle down, bubble up
 
 
+Q: What is the difference between window.location.href vs window.location.replace ?
+= It is better than using window.location.href =, because replace() does not keep the originating page in the session history, meaning the user won't get stuck in a never-ending back-button fiasco. If you want to simulate someone clicking on a link, use location.href. If you want to simulate an HTTP redirect, use location.replace.
+For example:
+// similar behavior as an HTTP redirect
+window.location.replace("http://stackoverflow.com");
 
+// similar behavior as clicking on a link
+window.location.href = "http://stackoverflow.com";
 
+Q: How do you find the device is mobile in website with javascript?
+= You can use this code
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+ // some code..
+}
+> navigator.userAgent will give the details about the user's device.
+> To find particular mobile device type, you can go like:
+ ----------------------------------------------------------
+| var isMobile = {
+|    Android: function() {
+|        return navigator.userAgent.match(/Android/i);
+|    },
+|    BlackBerry: function() {
+|        return navigator.userAgent.match(/BlackBerry/i);
+|    },
+|    iOS: function() {
+|        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+|    },
+|    Opera: function() {
+|        return navigator.userAgent.match(/Opera Mini/i);
+|    },
+|    Windows: function() {
+|        return navigator.userAgent.match(/IEMobile/i);
+|    },
+|    any: function() {
+|        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+|    }
+| };
+| // To check to see if the user is on any of the supported mobile devices: 
+| if( isMobile.any() ) alert('Mobile');
+| // To check to see if the user is on a specific mobile device:
+| if( isMobile.iOS() ) alert('iOS');
+ ----------------------------------------------------------
 
-
-
-
+Q:
 
