@@ -300,3 +300,28 @@ table {
 	border-spacing: 0;
 }
 
+Q: What is em and rem value formats for letter-spacing, font-size etc?
+=  
+
+Q: What is CSS cubic-beizer in animation?
+= CSS controls the (speed of) animation according to the shape of beizer-curve.
+There are 2 tools that can help to give the value of curve:
+1. easings.net  2. cubic-bezier.com
+
+Q: What are the timing functions for animations?
+= Transitions and animations also have another shared property that controls how the intermediate values between states are calculated, and that's called the transition timing function. It's optional, and defaults to ease. The following timing functions are available to us by default:
+1. ease       - speeds up a little through the middle, and then slows down towards the end
+2. ease-in    - starts of slowly, and accelerates through to the end
+3. ease-out   - starts of quickly, and decelerates through to the end ease-in-out - starts slowly, accelerates through to the middle, then decelerates through to the end
+4. linear     - constant animation speed throughout
+5. step-start - steps to the final state in the first frame of the animation
+6. step-end   - steps to the final state in the last frame of the animation
+7. steps(n, start|end) - steps through n frames for the duration of the animation, "eating" a frame either at the start or the end
+
+Q: What is CSS3 mix-blend mode?
+= If you have ever used a graphic or photo editor like Photoshop and Pixelmator, you should already be familiar with Blending Modes. 
+Blending Modes is a collection of modes that enables an object to blend with other objects, and thus producing contrastive output of the mix. If done correctly, Blending Modes could output a very enticing result, like this.
+
+
+Q: What is Perspective?
+= 
