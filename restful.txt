@@ -1,0 +1,29 @@
+Q: If you have / and /:id path url in resful get service and if you are making /emp url get method also, Will it work?
+= if /:id is declared before  /emp then /emp will not work bcz as pattern matching /:id will mismatch the /emp and /:id calls.
+
+Q: How to check for cookies during testing restful service on postman?
+=  To check it on postman, install postman-interceptor also and on the right top first button 
+- swipe the switch to on interceptor mode.
+
+Q: What is the cookies concept?
+= When request comes to the server first time then it add cookie to res object and then send response back to client.
+To get the cookies you use the req
+req.cookies['mycookie'];
+Note: first time you will get it's response bcz first it will be response object and not on the browser, second time you will get the value of this cookie.
+> If your cookie expires in 10 sec and if you set that cookie within these 10 sec then it will again set as cookie otherwise it expires.
+
+
+Q: Feature of Good REST APIs?
+= Good REST APIs:
+1. are well-documented and reliable
+2. use HTTP verbs as Fielding originally defined
+3. support X-HTTP-METHOD-Override to accommodate picky proxies
+4. express URLs with nouns rather than verbs
+5. track version
+6. make expressive use of HTTP Status Codes
+7. handle errors carefully and explicitly
+8. log activity
+9. choose wisely between XML (increasingly rare), JSON, and HATEOAS (rapidly growing)
+10. paginate, filter, and sort results
+11. limit rates
+12. explicitly design in other commercially-significant API-specific features
