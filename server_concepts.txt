@@ -1,0 +1,131 @@
+Q: What are the sse(server sent events)?
+= Server-sent events is a W3C specification that describes how a server can push events to browser clients. All this using the standard HTTP protocol. 
+A couple of years ago this was a very promising specification, but then websockets came along and interest for this specification diminished a bit. 
+It is however a very nice, easy to use, light weight way of pushing updates from a server to a number of connected clients. 
+If we want to listen to server-sent events (sse) we only have to include a small piece of javascript:
+------------------------------------------------------------------
+        var source = new EventSource('/stats');
+        source.addEventListener('message', handleCallback, false);
+------------------------------------------------------------------
+This will create a listener that automatically tries to connect to /stats, using a standard HTTP request. If it fails or loses its connection it will immediately try to reconnect without you having to do anything. 
+When the server sends an event, the handleCallback function will be called with the received data. Unlike websockets we can only receive text data using sse. This, however, shouldn't be too big of an issue, since a lot of data is sent as JSON strings anyways.
+> A server-sent event is a snippet of text delivered as part of a stream from a URL. In order for browsers to treat our data as a stream we must:
+1. serve our content with a Content-type header whose value is text/event-stream;
+2. use UTF-8 character encoding.
+3. The syntax for a server-sent event is simple. It consists of one or more colon-separated field name-value pairs, followed by an end-of-line character. Field names can contain one of four possible values.
+   a. data: The information to be sent.
+   b. event: The type of event being dispatched.
+   c. id: An identifier for the event to be used when the client reconnects.
+   d. retry: How many milliseconds should lapse before the browser attempts to reconnect to the URL.
+Of these, only the data field is required.
+
+Q: What is the content-type header for CORS response?
+= it is "text/event-stream".
+ 
+Q: How will you handle errors in SSE?
+= Handling errors
+Smart error handling requires a bit more work than just setting the onerror attribute. We also need to know whether the error resulted in a failed connection, or a temporarily interrupted one. After a failed connection, the browser will not attempt to reconnect. 
+If it is a temporary interruption — as can occur if the computer was asleep, or the server closes the connection — the browser will try again. Browsers will dispatch an error event for any of the following reasons.
+> The URL sends a Content-type response header with the wrong value.
+> he URL returned an HTTP error header such as 404 File Not Found or 500 Internal Server Error.
+> A network or DNS issue prevented a connection.
+> The server closed the connection.
+> The requesting origin is not one allowed by the URL.
+That last point deserves some clarification. To date, no browser supports server-sent event requests across origins. In Firefox and Opera, attempting a cross-origin request will trigger an error event on the EventSource object, and the connection will fail. 
+In Chrome and Safari, it will trigger a DOM security exception instead.
+
+When handling errors, then, it’s important to check the readyState property. Let’s look at an example.
+------------------------------------------------------------------
+var onerror = function(event){
+    var txt;
+    switch( event.target.readyState ){
+        // if reconnecting
+        case EventSource.CONNECTING:
+            txt = 'Reconnecting...';
+            break;
+        // if error was fatal
+        case EventSource.CLOSED:
+            txt = 'Connection failed. Will not retry.';
+            break;
+    }
+    alert(txt);
+}
+------------------------------------------------------------------
+In the code above, if the value of e.target.readyState is EventSource.CONNECTING (a constant defined by the specification; its value is 0), we will alert the user that we are reconnecting. 
+If its value equals EventSource.CLOSED (another constant whose value is 2), we will alert the user that the browser will not reconnect.
+
+Q: What if browser donot support EventSource for calling SSE?
+= XMLHttpRequest can be used as a fallback for browsers that do not support EventSource. Polyfills that use an XHR fallback include EventSource by Yaffle and EventSource.js by Remy Sharp.
+Android’s WebKit and Opera Mini do not. Since EventSource is a property of the global object (in browsers, this is typically the window object), we can determine support using the following code.
+--------------------------------------------------
+if(window.EventSource !== undefined){
+    // create an event source object.
+} else {
+    // Use a fallback or throw an error.
+}
+--------------------------------------------------
+
+Q: What are the conditions for CSR (Cross Site Request)?
+= A simple cross-site request is one that meets all the following conditions:
+The only allowed methods are:
+1. GET
+2. HEAD
+3. POST
+> Apart from the headers set automatically by the user agent (e.g. Connection, User-Agent, etc.), the only headers which are allowed to be manually set are:
+1. Accept
+2. Accept-Language
+3. Content-Language
+4. Content-Type
+> The only allowed values for the Content-Type header are:
+1. application/x-www-form-urlencoded
+2. multipart/form-data
+3. text/plain
+> Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https, chrome-extension-resource. (In chrome specification)
+
+Q: How to use EventSource with Cross-site Requests (CORS)?
+= To make EventSource work correctly with cross-site requests using CORS:
+1. The server side must send the following headers:
+--------------------------------------------------------
+    Access-Control-Allow-Origin: <your-domain-here>
+    Access-Control-Expose-Headers: *
+    Access-Control-Allow-Credentials: true
+--------------------------------------------------------
+See:
+http://www.html5rocks.com/en/tutorials/cors/
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+http://www.w3.org/TR/cors/
+
+2. On the client side when creating the EventSource object, add a second parameter like so:
+--------------------------------------------------------
+   EventSource('your-url-here', {withCredentials: true})
+--------------------------------------------------------
+
+Q: Difference b/w sse and web-sockets?Why would you choose Server-Sent Events over WebSockets?
+= Server-Sent Events vs. WebSockets:
+One reason SSEs have been kept in the shadow is because later APIs like WebSockets provide a richer protocol to perform bi-directional, full-duplex communication. 
+Having a two-way channel is more attractive for things like games, messaging apps, and for cases where you need near real-time updates in both directions. However, in some scenarios data doesn't need to be sent from the client. 
+You simply need updates from some server action. A few examples would be friends' status updates, stock tickers, news feeds, or other automated data push mechanisms (e.g. updating a client-side Web SQL Database or IndexedDB object store). If you'll need to send data to a server, XMLHttpRequest is always a friend.
+SSEs are sent over traditional HTTP. That means they do not require a special protocol or server implementation to get working. WebSockets on the other hand, require full-duplex connections and new Web Socket servers to handle the protocol. 
+In addition, Server-Sent Events have a variety of features that WebSockets lack by design such as automatic reconnection, event IDs, and the ability to send arbitrary events.
+In simple words:
+> Websockets and SSE (Server Sent Events) are both capable of pushing data to browsers, however they are not competing technologies.
+> Websockets connections can both send data to the browser and receive data from the browser. A good example of an application that could use websockets is a chat application.
+> SSE connections can only push data to the browser. Online stock quotes, or twitters updating timeline or feed are good examples of an application that could benefit from SSE.
+Advantages of SSE over Websockets:
+----------------------------------
+1. Transported over simple HTTP instead of a custom protocol
+2. Can be poly-filled with javascript to "backport" SSE to browsers that do not support it yet.
+3. Built in support for re-connection and event-id
+4. Simpler protocol
+
+Advantages of Websockets over SSE:
+----------------------------------
+1. Real time, two directional communication.
+2. Native suport in more browers
+
+Ideal use cases of SSE:
+----------------------
+1. Stock ticker streaming
+2. twitter feed updating
+3. Notifications to browser
+
