@@ -1,0 +1,8 @@
+Q: What are the HTML APIs?
+= Some of the HTML APIs are:
+1. HTML Geolocation
+2. HTML Drag/Drop
+3. HTML Local Storage
+4. HTML App Cache
+5. HTML Web Workers
+6. HTML SSE(server-side-events)
