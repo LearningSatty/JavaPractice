@@ -429,11 +429,18 @@ for (var event in map)
 // ? The correlation for 'touched tree' is -0.081
 
 Q: How do you get all the keys of an object?
-=  Using Object.keys(objectvar) method:
+=  
 var person = { age: 18 };
 person.name = 'Joshua';
 person['color'] = 'Red';
-Object.keys(person); 	//==> ['age', 'name', 'color']
+Way1:
+Using Object.keys(objectvar) method:
+Object.keys(person); 	//==> ['age', 'name', 'color']  // array of string will be returned.
+Way 2:
+Using iterators
+for(var key in person){
+   console.log(key);
+}    //==> age, name, color. (not in array, only string will be returned
 
 Q: What does an Enumerable and Non-Enumerable properties in Javascript?
 =  It isn't very common in the wild but JavaScript (as of ES5) does support non-enumerable properties. That is to say, objects can have properties that don't show up when you do a "for...in" loop over the object or use "Object.keys()" to get an array of property names.
@@ -462,8 +469,8 @@ All properties that we create by simply assigning to them are enumerable. The st
 It is possible to define our own nonenumerable properties by using the Object.defineProperty function, which allows us to control the type of property we are creating.
 Object.defineProperty(Object.prototype, "hiddenNonsense",
                       {enumerable: false, value: "hi"});	// here we are creating the prototpye for object.
-prototypes are non-enumerable until we override it from own. so when we use for..in loop or Object.keys() method it will skip prototypes.
-but when we check with console.log("hiddenNonsense" in person); it will give us true.
+prototypes are non-enumerable until we override it from own. so when we use for..in loop or Object.keys() method it will skip prototypes. But it will work with in operator to check any type of key whether it is enumberable or not.
+so when we check with console.log("hiddenNonsense" in person); it will give us true.
 
 Q: How to create an object without prototype?
 = using Object.create(null) method:
