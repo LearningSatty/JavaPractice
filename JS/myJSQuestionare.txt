@@ -121,10 +121,12 @@ Q: 1. console.log(1 +  -"1" + "2");
    4. console.log( "A" - "B" + "2");
    
 5. console.log( "A" - "B" + 2);
+6. console.log("5"-"2");
 A= 1. 02 
    2. AB2
    3. AB2	
    4. Nan2
+   5. 3
    ("A" - "B" + "2" Outputs: "NaN2" Explanation: Since the '-' operator can not be applied to strings, and since neither "A" nor "B" can be converted to numeric values, "A" - "B" yields NaN which is then concatenated with the string "2" to yield “NaN2”.)
    3. Nan
    (As exlained above "A" - "B" yields NaN. But any operator applied to NaN with any other numeric operand will still yield NaN.)
