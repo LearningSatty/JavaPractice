@@ -1,0 +1,54 @@
+		                SPA (Single Page Application)
+
+> Discussed as early as ~2003.
+> Patent filed
+> Frameworks:
+  1. Angular, 
+  2. Ember, 
+  3. ExtJS, 
+  4. React, and 
+  5. Meteor
+
+Benefits of SPA:
+---------------
+A. Thin Server - 
+   - Business Logic transferred to Client.
+   - Less Server queries
+B. Increased Responsiveness – 
+   - Complex / Responsive UIs are easier to develop.
+C. separates UI and data
+D. Closer to User
+E. easy to debug
+F. works and feels more like an application then a web page.
+G. Scalable
+H. moves much of the MVC implementation to the client
+
+
+GitHub as SPA
+--------------
+> Low-end interactivity
+> Pages are mostly static.
+> Represents mostly static piece of information already processed, and add a bit of interactivity via Javascript.
+> Changing data usually causes a full page refresh.
+> State and data can be stored in HTML, because if data is altered, the page is refreshed.
+> Because a majority of the state is in the HTML, parts of the UI do not generally interact with each other. 
+> If complex interactions are needed, they are resolved on the server.
+
+Gmail as SPA
+--------------
+> High-end interactivity
+> Pages are mostly dynamic.
+> Contains set of data which user interacts with in various ways; changes to the data reflected on the page immediately.
+> Changing data update the views, but not cause a page refresh - because views have many small intermediate states which are not stored in the database.
+> Storing state and data in HTML is a bad idea, because it makes it hard to keep multiple views that represent the same data in sync.
+> Complex interactions are more feasible; data is separate from presentation.
+> Interactions don't need to map to backend actions, e.g. you can paginate and select items in a view without writing a new server-side endpoint.
+
+Challenges of SPA
+-----------------
+> Browser History
+> Analytics
+> Client must enable javascript
+> Only one entry point to the site
+> Security (– easy to fake. can easily fake JSON data communication to test SPA, and can also easily fake JSON requests to server to write unit tests.)
+> SEO Optimization
