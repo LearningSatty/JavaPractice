@@ -211,4 +211,225 @@ If I were building an email application with an Inbox, we might use an inbox nam
 |$scope.$on('inbox:save', function (event, data) {...});
  ---------------------------------------------------------------
 
-Q: 
+In that case, you don't need to use angular.copy()
+
+Explanation :
+
+= represents a reference whereas angular.copy() creates a new object as a deep copy.
+Using = would mean that changing a property of response.data would change the corresponding property of $scope.example or vice versa.
+Using angular.copy() the two objects would remain seperate and changes would not reflect on each other.
+
+
+Q:In how many ways you can send data from one controller to other controller?
+= 1. Using Services
+  2. using $emit, $broadcast and $on
+  3. share via $rootscope.
+
+
+Q: How to send broadcast to sibling div?
+<div ng-controller="ParentCtrl as parent" class="ng-scope">
+  <div ng-controller="SiblingOneCtrl as sib1" class="ng-scope"></div>
+  <div ng-controller="SiblingTwoCtrl as sib2" class="ng-scope"></div>
+</div>
+= If SiblingTwoCtrl fired $scope.$broadcast, then SiblingOneCtrl would never know it happened. This can be an annoyance, but a (slightly hacky-feely) remedy can be done:
+ ------------------------------------------------
+| $scope.$parent.$broadcast('myevent', 'Some data');
+ ------------------------------------------------
+
+Q: $rootScope.$emit versus $rootScope.$broadcast?
+= There is no point in using $rootScope.$emit because $rootScope has no $parent.
+but $rootScope.$broadcast will notify all $rootScope.$on as well as $scope.$on listeners.
+
+Q: If you have following situation:
+ -------------------------------------------------------------
+| <div ng-controller="ParentCtrl as parent" class="ng-scope">
+|  // ParentCtrl
+|  <div ng-controller="SiblingOneCtrl as sib1" class="ng-scope">
+|    // SiblingOneCtrl
+|  </div>
+|  <div ng-controller="SiblingTwoCtrl as sib2" class="ng-scope">
+|    // SiblingTwoCtrl
+|    <div ng-controller="ChildCtrl as child" class="ng-scope">
+|      // ChildCtrl
+|    </div>
+|  </div>
+| </div>
+ -------------------------------------------------------------
+Using $scope.$emit inside ChildCtrl would result in SiblingTwoCtrl and ParentCtrl only being notified, as the event doesn’t hit sibling scopes only direct ancestors (completely ignoring SiblingOneCtrl). 
+In this situation how you communicate child Ctrl with SiblingOneCtrl?
+= If we used $rootScope, however, then we can target $rootScope listeners as well.
+ ---------------------------------------------------------------
+| app.controller('SiblingOneCtrl',
+|  function SiblingOneCtrl ($rootScope) {
+|
+|  $rootScope.$on('rootScope:emit', function (event, data) {
+|    console.log(data); // 'Emit!'
+|  });
+|  
+|  $scope.$on('rootScope:broadcast', function (event, data) {
+|    console.log(data); // 'Broadcast!'
+|  });
+|  
+|  $rootScope.$on('rootScope:broadcast', function (event, data) {
+|    console.log(data); // 'Broadcast!'
+|  });
+|
+| });
+|
+|  app.controller('ChildCtrl',
+|  function ChildCtrl ($rootScope) {
+|
+|  $rootScope.$emit('rootScope:emit', 'Emit!'); // $rootScope.$on
+|  $rootScope.$broadcast('rootScope:broadcast', 'Broadcast'); 
+| // $rootScope.$on && $scope.$on
+| });
+  ---------------------------------------------------------------
+
+Q: What is $rootScope $destroy?
+= When using $rootScope.$on, we need to unbind those listeners each time the $scope is destroyed. $scope.$on listeners are automatically unbound, but we’ll need to call the above closure manually on the $destroy event:
+ ---------------------------------------------------------------
+| app.controller('ParentCtrl',
+|  function ParentCtrl ($scope) {
+|
+|  // $rootScope $on
+|  var myListener = $rootScope.$on('child', function (event, data) {
+|    //
+|  });
+|
+|  // $scope $destroy
+|  $scope.$on('$destroy', myListener);
+|
+| });
+ ---------------------------------------------------------------
+
+Q: How can you cancel events/ propogation in AngularJS?
+= If you choose to use $emit, one of your other $scope listeners can cancel it, so prevent it bubbling further. Using $broadcast has the opposite effect in which it cannot be cancelled!
+Cancelling an event which was sent via $emit looks like this:
+ ---------------------------------------------------------------
+| $scope.$on('myCustomEvent', function (event, data) {
+|   event.stopPropagation();
+| });
+ ---------------------------------------------------------------
+
+Q: What is $rootScope.$$listeners?
+= Every Angular Object has several properties, we can dig into them and observe what’s happening “under the hood”. We can take a look at $rootScope.$$listeners to observe the listeners lifecycle. We can also unsubscribe from events that way as well by using this (but I wouldn’t encourage it):
+ ---------------------------------------------------------------
+| $rootScope.$$listeners.myEventName = [];
+ ---------------------------------------------------------------
+
+Q: What is Event namespacing?
+= Generally if I’m working on a particular Factory, I’ll communicate to other Directives or Controllers or even Factories using a specific namespace for cleaner pub/subs, which keeps things consistent and avoid naming conflicts.
+If I were building an email application with an Inbox, we might use an inbox namespace for that specific section. This is easily integrated with a few simple examples:
+ ---------------------------------------------------------------
+| $scope.$emit('inbox:send'[, data]);
+| $scope.$on('inbox:send', function (event, data) {...});
+| 
+| $scope.$broadcast('inbox:delete'[, data]);
+| $scope.$on('inbox:delete', function (event, data) {...});
+|
+| $scope.$emit('inbox:save'[, data]);
+|$scope.$on('inbox:save', function (event, data) {...});
+ ---------------------------------------------------------------
+
+Q: What is promise object?
+= Promise Object: Promise is an object which is return by a Deferred object. You can register different callbacks for different events resolve(), reject(), or notify() and it will execute when async function has completed.
+Deferred API:
+--------------
+A new instance of defer is created by calling $q.defer(). It has mainly three methods.
+.resolve(value) – This method is use to resolve the derive promise ie. // promise fulfilled -ve
+.reject(value) – This method is use to reject the derived promise ie. // promise fulfilled -ve
+.notify(value) – This method is use to notify the current state of the derived promise
+Promise API:
+--------------
+A new promise is created when you create a defer. You can get the instance of promise object by defer.promise. It is use to get the result of the defer when promise has completed. There are three event where you can bind your listeners.
+then(successCallback, errorCallback, notifyCallback)- Regardless promise is resolved or rejected, it calls one of the success or error callback. Notification callback may be called zero or more than one time.
+catch(errorCallback)- This is the sorthand for promise.then(null, errorCallback) where success callback is not given.
+finally(callback, notifyCallback)- This allows you to watch every single event of a promise. callback is called once when either promise is resolve or rejected.
+- See more at: http://www.tothenew.com/blog/angularjs-deferred-promises-basic-understanding/#sthash.20gnuIDg.dpuf
+
+Q: How do you use $q.all() to Resolve Multiple Promises?
+= $q.all() is one of the method that i use more frequently. $q.all accepts array of promises as argument. Once all of the promises get completed. you will get the result in callback function as array of results. 
+ --------------------------------------------------
+| var myApp = angular.module('myApp', []);
+|
+| myApp.factory('myService', function ($http, $q) {
+|    return {
+|        getAllData: function () {
+|            return $q.all([
+|                $http.get('../wordpress/api/core/get_category_posts/?category_id=14'),
+|                $http.get('../wordpress/api/core/get_category_posts/?category_id=15'),
+|                $http.get('../wordpress/api/core/get_category_posts/?category_id=16'),
+|                $http.get('../wordpress/api/core/get_category_posts/?category_id=17')
+|            ]).then(function (results) {
+|                var aggregatedData = [];
+|                angular.forEach(results, function (result) {
+|                    aggregatedData = aggregatedData.concat(result.data);
+|                });
+|                return aggregatedData;
+|            });
+|        }
+|    };
+| });
+ --------------------------------------------------
+You can see above that the aggregatedData is only generated once all the async calls are completed via the $q.all.
+You just need to include the service as dependency into one of your controllers, 
+for example, and call the service like this myService.getAllData()
+The $http.get calls are async, but you aren't waiting until they are all completed before resolving the deferred. 
+Here it works with the timeout simply because your are lucky that the calls have time to complete within 1 second, however this isin't reliable at all.
+
+
+
+Q: How do you retrieve data from $q.all(promises)?
+= 
+
+Q: How to cancel an $http request in AngularJS? Given a Ajax request in AngularJS:
+     $http.get("/backend/").success(callback);
+= This feature was added to the 1.1.5 release via a timeout parameter:
+ -------------------------------------
+| var canceler = $q.defer();
+| $http.get('/someUrl', {timeout: canceler.promise}).success(successCallback);
+| // later...
+| canceler.resolve();  // Aborts the $http request if it isn't finished.
+ -------------------------------------
+
+Q: Angular foreach vs for loop in using $q in AngularJS?
+= http://stackoverflow.com/questions/21310964/angularjs-q-all
+
+Q: What is deferred object?
+= Deferred Object: Deferred is an object which expose the promise. It has  mainly three methods resolve(), reject(), and notify(). Deferred returns promise object. 
+When Deferred completes, You call methods either resolve(), reject(), and notify() . It calls callback register to either resolve(), reject(), or notify() according to how it has completed.
+
+Q: When should I use an attribute versus an element? 
+= 
+
+
+Note: In defining directives
+ --------------------------
+| scope: {
+|   // same as '=customer'
+|   customer: '='
+| },
+ --------------------------
+
+
+Q: What could be the return type of AngularJS compile function?
+= A compile function can have a return value which can be either a function or an object.
+> returning a (post-link) function - is equivalent to registering the linking function via the link property of the config object when the compile function is empty.
+> returning an object with function(s) registered via pre and post properties - allows you to control when a linking function should be called during the linking phase. 
+
+
+Q: What is Angular Component? How they are different from directive, when to use?
+= In Angular, a Component is a special kind of directive that uses a simpler configuration which is suitable for a component-based application structure.
+This makes it easier to write an app in a way that's similar to using Web Components or using Angular 2's style of application architecture.
+Advantages of Components:
+-------------------------
+1. simpler configuration than plain directives
+2. promote sane defaults and best practices
+3. optimized for component-based architecture
+4. writing component directives will make it easier to upgrade to Angular 2
+When not to use Components:
+---------------------------
+1. for directives that need to perform actions in compile and pre-link functions, because they aren't available
+2. when you need advanced directive definition options like priority, terminal, multi-element
+3. when you want a directive that is triggered by an attribute or CSS class, rather than an element
+
