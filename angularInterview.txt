@@ -433,3 +433,25 @@ When not to use Components:
 2. when you need advanced directive definition options like priority, terminal, multi-element
 3. when you want a directive that is triggered by an attribute or CSS class, rather than an element
 
+Q: What is Angular Queue?
+= Angular Queue is:
+> a service ($q)
+> helps functions run asynchronously.
+> Based on and subset of Kris Kowal's q.
+> uses promises and deferred onject.
+What is defer
+= Defer represents a task to be done.
+Defer Apis:
+- resolve(value)
+- reject(reason)
+- notify(value)
+What is promise
+- Allows access to the result of deferred task
+- Promise APIs
+   > Then(successCallback, errorCallback, notifyCallback)
+   > catch(errorCallback)
+   > Finally(callback, notifyCallback)
+Promise Chaining
+- Helps avoiding Pyramid of Doom
+
+
