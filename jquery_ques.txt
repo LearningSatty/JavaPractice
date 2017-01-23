@@ -1,0 +1,11 @@
+Q: How to change CSS using jQuery?
+= 
+$(init);   
+function init() {
+    $("h1").css("backgroundColor", "yellow");  // for html element
+    $("#myParagraph").css({"backgroundColor":"black","color":"white"); //html element with id
+    $(".bordered").css("border", "1px solid black"); // html element with class
+}
+
+Q: Differences Between jQuery .bind() vs .live() vs .delegate() vs .on()?
+= 
