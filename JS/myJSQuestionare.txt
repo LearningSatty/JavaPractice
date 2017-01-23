@@ -121,12 +121,10 @@ Q: 1. console.log(1 +  -"1" + "2");
    4. console.log( "A" - "B" + "2");
    
 5. console.log( "A" - "B" + 2);
-6. console.log("5"-"2");
 A= 1. 02 
    2. AB2
    3. AB2	
    4. Nan2
-   5. 3
    ("A" - "B" + "2" Outputs: "NaN2" Explanation: Since the '-' operator can not be applied to strings, and since neither "A" nor "B" can be converted to numeric values, "A" - "B" yields NaN which is then concatenated with the string "2" to yield “NaN2”.)
    3. Nan
    (As exlained above "A" - "B" yields NaN. But any operator applied to NaN with any other numeric operand will still yield NaN.)
@@ -429,18 +427,11 @@ for (var event in map)
 // ? The correlation for 'touched tree' is -0.081
 
 Q: How do you get all the keys of an object?
-=  
+=  Using Object.keys(objectvar) method:
 var person = { age: 18 };
 person.name = 'Joshua';
 person['color'] = 'Red';
-Way1:
-Using Object.keys(objectvar) method:
-Object.keys(person); 	//==> ['age', 'name', 'color']  // array of string will be returned.
-Way 2:
-Using iterators
-for(var key in person){
-   console.log(key);
-}    //==> age, name, color. (not in array, only string will be returned
+Object.keys(person); 	//==> ['age', 'name', 'color']
 
 Q: What does an Enumerable and Non-Enumerable properties in Javascript?
 =  It isn't very common in the wild but JavaScript (as of ES5) does support non-enumerable properties. That is to say, objects can have properties that don't show up when you do a "for...in" loop over the object or use "Object.keys()" to get an array of property names.
@@ -469,8 +460,8 @@ All properties that we create by simply assigning to them are enumerable. The st
 It is possible to define our own nonenumerable properties by using the Object.defineProperty function, which allows us to control the type of property we are creating.
 Object.defineProperty(Object.prototype, "hiddenNonsense",
                       {enumerable: false, value: "hi"});	// here we are creating the prototpye for object.
-prototypes are non-enumerable until we override it from own. so when we use for..in loop or Object.keys() method it will skip prototypes. But it will work with in operator to check any type of key whether it is enumberable or not.
-so when we check with console.log("hiddenNonsense" in person); it will give us true.
+prototypes are non-enumerable until we override it from own. so when we use for..in loop or Object.keys() method it will skip prototypes.
+but when we check with console.log("hiddenNonsense" in person); it will give us true.
 
 Q: How to create an object without prototype?
 = using Object.create(null) method:
@@ -1663,5 +1654,56 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 | if( isMobile.iOS() ) alert('iOS');
  ----------------------------------------------------------
 
-Q:
+Q: What is the output of this:
+   const myObj1 = {name :'myobj',
+                    
+		   age :25};
+
+   var sa = JSON.stringify(myObj.toString());
+   
+console.log(sa);
+= "[object Object]" bcz myobj.toString will convert into "object object" before Json format.
+So never use toString to stringify Json.stringify(myobj) will give you full json object.
+
+
+Q: How you will downloading Data with XHR?
+= 
+
+Q: What is the difference between MVC and Flux design patterns in Javascript?
+=  Flux is used in ReactJs.
+MVC Problems
+--------------
+MVC is a legendary pattern that has been used for various projects since 1976 (it was introduced in Smalltalk-76). It has stood the test of time and most of the biggest projects still use it today. Why even try to replace it?
+MVC did not scale well for Facebook’s huge codebase. The main problem for them was the bidirectional communication, where one change can loop back and have cascading effects across the codebase (making things very complicated to debug and understand).
+How does Flux solve this? By forcing an unidirectional flow of data between a system’s components.
+In general the flow inside the MVC pattern is not well defined. A lot of the bigger implementations do it very differently (e.g. Cocoa MVC vs. Ruby on Rails MVC).
+Flux on the other hand is all about controlling the flow inside the app?—?and making it as simple to understand as possible.
+The core of the Flux pattern
+Flux has four roles: actions, stores, the dispatcher and views. Their responsibilities can be defined as following:
+Actions are simple objects with a type property and some data. For example, an action could be {“type”: “IncreaseCount”, “local_data”: {“delta”: 1}}
+Stores contain the application’s state and logic. The best abstraction is to think of stores as managing a particular domain of the application. They aren’t the same as models in MVC since models usually try to model single objects, while stores in Flux can store anything
+The Dispatcher acts as a central hub. The dispatcher processes actions (for example, user interactions) and invokes callbacks that the stores have registered with it. The dispatcher isn’t the same as controllers in the MVC pattern?—?usually the dispatcher does not have much logic inside it and you can reuse the same dispatcher across projects
+Views are controller-views, also very common in most GUI MVC patterns. They listen for changes from the stores and re-render themselves appropriately. Views can also add new actions to the dispatcher, for example, on user interactions. The views are usually coded in React, but it’s not necessary to use React with Flux
+The general flow of a Flux application can be defined as following: 
+      ----------------------------------------- 
+     |	Action -> Dispatcher -> Store -> View  |
+      ----------------------------------------- 
+The most important thing to note is that every change goes via an action through the dispatcher, illustrated like this:
+ --------------------------------------------- 
+|	     ------------------ Action        |
+|	    |			   ~          |		
+|	    ~			   |          |	
+|	Dispatcher---->Store---->View         |
+|	    ~		 | 	              |
+|	    | 		 ~		      |
+|	     ---------Action		      |
+ --------------------------------------------- 
+Note: ~ is > in that corresponding direction.
+So how is Flux different from MVC?
+The Flow of the app is essential to Flux and there are very strict rules that are enforced by the Dispatcher. In MVC the flow isn’t enforced and most MVC patterns implement it differently
+Unidirectional flow: Every change goes through the dispatcher. A store can’t change other stores directly. Same applies for views and other actions. Changes must go through the dispatcher via actions. In MVC it’s very common to have bidirectional flow
+Stores don’t need to model anything and can store any application related state. In MVC models try to model something, usually single objects.
+
+
+
 
