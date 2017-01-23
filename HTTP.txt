@@ -1,0 +1,14 @@
+>The HTTP response headers
+ ------------------------
+1. Access-Control-Allow-Origin
+2. Access-Control-Expose-Headers
+3. Access-Control-Max-Age
+4. Access-Control-Allow-Credentials
+5. Access-Control-Allow-Methods
+6. Access-Control-Allow-Headers
+
+>The HTTP request headers
+ ------------------------
+1. Origin
+2. Access-Control-Request-Method
+3. Access-Control-Request-Headers
