@@ -705,13 +705,10 @@ String.prototype.strictMethod = function () {
 
 Q: What is the output of 
    var x ;
-
    console.log(x);
-   
-var x = 4;
-
+   var x = 4;
    var x = 5;
-=  5  (in case of simple statements x will get value from last statement, but if it will be in function, hoisting applies)
+=  undefined.
 
 Q: function f() {
  
